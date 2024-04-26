@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="457.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.DetalleIncidenciaController">
+   <children>
+      <Label fx:id="incidentDetail" layoutX="24.0" layoutY="22.0" text="Detalle de incidencia #0001">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="564.0" layoutY="20.0" mnemonicParsing="false" onAction="#irCatalogo" style="-fx-background-color: #0D82FF;" text="Regresar" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <VBox alignment="TOP_RIGHT" layoutX="43.0" layoutY="79.0" prefHeight="113.0" prefWidth="73.0" spacing="15.0">
+         <children>
+            <Label text="Titulo" />
+            <Label text="ID" />
+            <Label text="Estatus" />
+            <Label text="Descripción" />
+         </children>
+      </VBox>
+      <TextArea fx:id="description" editable="true" layoutX="55.0" layoutY="206.0" prefHeight="147.0" prefWidth="256.0" style="-fx-text-fill: #777777;" text="Descripción..." />
+      <VBox alignment="TOP_RIGHT" layoutX="360.0" layoutY="88.0" prefHeight="118.0" prefWidth="100.0" spacing="15.0">
+         <children>
+            <Label text="Fecha de cración" />
+            <Label text="Departamento" />
+            <Label text="Severidad" />
+            <Label text="Usuario asignado" />
+            <Label text="Usuario creador" />
+            <Label text="Actualizado el " />
+         </children>
+      </VBox>
+      <Separator layoutX="327.0" layoutY="79.0" orientation="VERTICAL" prefHeight="368.0" prefWidth="0.0" />
+      <Button fx:id="editButton" layoutX="574.0" layoutY="397.0" mnemonicParsing="false" onAction="#editarUsuario" style="-fx-background-color: #EBA000;" text="Editar" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveButton" layoutX="490.0" layoutY="397.0" mnemonicParsing="false" onAction="#guardarCambios" style="-fx-background-color: #317f43;" text="Guardar" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <TextField fx:id="title" layoutX="141.0" layoutY="76.0" />
+      <TextField fx:id="idNumber" layoutX="141.0" layoutY="108.0" />
+      <TextField fx:id="status" layoutX="141.0" layoutY="140.0" />
+      <TextField fx:id="createdDate" layoutX="484.0" layoutY="85.0" />
+      <TextField fx:id="departament" layoutX="484.0" layoutY="117.0" />
+      <TextField fx:id="severity" layoutX="484.0" layoutY="149.0" />
+      <TextField fx:id="assignedUser" layoutX="484.0" layoutY="181.0" />
+      <TextField fx:id="creatorUser" layoutX="484.0" layoutY="213.0" />
+      <TextField fx:id="updateDate" layoutX="484.0" layoutY="245.0" />
+      <Button layoutX="360.0" layoutY="397.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #ee5555;" text="Eliminar" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.userscontrollers.DetalleUsuarioController">
+   <children>
+      <Separator layoutX="296.0" layoutY="2.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="7.0" />
+      <Label layoutX="28.0" layoutY="36.0" text="ID de usuario" />
+      <TextField fx:id="idText" editable="true" layoutX="28.0" layoutY="53.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <TextField fx:id="name" editable="true" layoutX="28.0" layoutY="111.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <TextField fx:id="email" editable="true" layoutX="28.0" layoutY="172.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <TextField fx:id="password" editable="true" layoutX="28.0" layoutY="229.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <TextField fx:id="posicion" editable="true" layoutX="327.0" layoutY="49.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <Label layoutX="28.0" layoutY="94.0" text="Nombre de usuario" />
+      <Label layoutX="328.0" layoutY="32.0" text="Posición" />
+      <Button layoutX="27.0" layoutY="353.0" mnemonicParsing="false" onAction="#irCatalogo" style="-fx-background-color: #0D82FF;" text="Regresar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="editButton" layoutX="436.0" layoutY="353.0" mnemonicParsing="false" style="-fx-background-color: #EBA000;" text="Editar" onAction="#editarUsuario" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="28.0" layoutY="155.0" text="Email" />
+      <Label layoutX="28.0" layoutY="212.0" text="Contraseña" />
+      <TextField fx:id="rol" editable="true" layoutX="327.0" layoutY="111.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <Label layoutX="328.0" layoutY="94.0" text="Rol" />
+      <TextField fx:id="department" editable="true" layoutX="327.0" layoutY="172.0" prefHeight="25.0" prefWidth="234.0" style="-fx-text-fill: #777777;" />
+      <Label layoutX="328.0" layoutY="155.0" text="Departamento" />
+      <Button fx:id="saveButton" layoutX="509.0" layoutY="353.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #317f43;" text="Guardar" onAction="#guardarCambios" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="327.0" layoutY="353.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #ee5555;" text="Eliminar" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

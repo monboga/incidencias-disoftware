@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.NewIncidentController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Título de la incidencia" />
+      <TextField fx:id="id_incidentTitle" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="268.0" />
+      <Label layoutX="14.0" layoutY="76.0" text="Descripción de la incidencia" />
+      <TextArea fx:id="id_incidentDesc" layoutX="14.0" layoutY="93.0" prefHeight="133.0" prefWidth="268.0" />
+      <Separator layoutX="303.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="407.0" prefWidth="0.0" />
+      <Label layoutX="318.0" layoutY="14.0" text="Severidad de la incidencia" />
+      <ChoiceBox fx:id="ListSeveridad" layoutX="318.0" layoutY="31.0" prefHeight="25.0" prefWidth="268.0" />
+      <Label layoutX="318.0" layoutY="76.0" text="Departamento correspondiente" />
+      <ChoiceBox fx:id="ListDep" layoutX="318.0" layoutY="93.0" prefHeight="25.0" prefWidth="268.0" />
+      <Button layoutX="523.0" layoutY="361.0" mnemonicParsing="false" onAction="#createIncident" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #3583ff;" text="Enviar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button contentDisplay="CENTER" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #ff5555;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>   </children>
+</AnchorPane>
