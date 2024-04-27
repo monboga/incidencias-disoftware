@@ -24,7 +24,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="btnCatIncidencias" alignment="BOTTOM_LEFT" contentDisplay="TOP" graphicTextGap="15.0" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToIncidents" prefHeight="281.0" prefWidth="345.0" style="-fx-background-color: #B533FF;" text="Catálogo de incidencias" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="130.0">
+      <Button fx:id="btnCatIncidencias" alignment="BOTTOM_LEFT" contentDisplay="TOP" graphicTextGap="15.0" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToIncidents" prefHeight="281.0" prefWidth="345.0" style="-fx-background-color: #D5A2F1;" text="Catálogo de incidencias" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="130.0">
          <font>
             <Font name="Verdana Bold" size="23.0" />
          </font>
