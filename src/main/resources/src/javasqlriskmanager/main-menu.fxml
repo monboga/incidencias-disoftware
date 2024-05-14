@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="453.0" prefWidth="744.0" style="-fx-background-color: #F0F0F0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.MainMenuController">
+<AnchorPane prefHeight="453.0" prefWidth="744.0" style="-fx-background-color: #F0F0F0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.MainMenuController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="33.0" prefHeight="81.0" prefWidth="712.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -47,17 +45,10 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btnCatDepartamentos" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="372.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToDeptos" prefHeight="149.0" prefWidth="354.0" style="-fx-background-color: #75E2FF;" text="Catálogo de departamentos" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="262.0">
+      <Button fx:id="btnCatDepartamentos" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="372.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToDeptos" prefHeight="149.0" prefWidth="172.0" style="-fx-background-color: #75E2FF;" text="Catálogo de departamentos" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="262.0">
          <font>
-            <Font name="Verdana Bold" size="21.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="107.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/departamentos.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
+            <Font name="Verdana Bold" size="17.0" />
+         </font></Button>
       <Button fx:id="btnCatRoles" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="372.0" layoutY="130.0" mnemonicParsing="false" nodeOrientation="INHERIT" onAction="#goToRoles" prefHeight="125.0" prefWidth="172.0" style="-fx-background-color: #FB704A;" text="Catálogo de roles" AnchorPane.bottomAnchor="198.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="130.0">
          <font>
             <Font name="Verdana Bold" size="13.0" />
@@ -69,5 +60,20 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <ImageView fitHeight="98.0" fitWidth="93.0" layoutX="412.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/departamentos.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCatServers" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="554.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToServers" prefHeight="149.0" prefWidth="172.0" style="-fx-background-color: #98EC5B;" text="Catálogo de Servidores" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Verdana Bold" size="16.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="98.0" fitWidth="93.0" layoutX="594.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/servers.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
