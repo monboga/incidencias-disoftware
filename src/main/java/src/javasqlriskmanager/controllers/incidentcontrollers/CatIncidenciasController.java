@@ -1,9 +1,7 @@
 package src.javasqlriskmanager.controllers.incidentcontrollers;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,15 +11,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
 import src.javasqlriskmanager.MainApplication;
 import src.javasqlriskmanager.controllers.LoginController;
 import src.javasqlriskmanager.models.Incident;
 import src.javasqlriskmanager.singletons.IncidentSingleton;
 import src.javasqlriskmanager.utils.ConnectToDB;
-import src.javasqlriskmanager.utils.IncidentDTO;
 import javafx.scene.Parent;
 
 import java.io.IOException;
@@ -51,15 +45,11 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     private TableColumn<Incident, Date> col_Update;
     @FXML
-    private TableColumn<Incident, Long> col_Status;
+    private TableColumn<Incident, String> col_Status;
     @FXML
-    private TableColumn<Incident, Long> col_Severity; //variable de columna severidad uso??
+    private TableColumn<Incident, String> col_Severity; //variable de columna severidad uso??
     @FXML
-    private TableColumn<Incident, Long> col_Creator; //variable de columna creador uso??
-    @FXML
-    private TableColumn<Incident, Long> col_Assigned; //variable de columna usuario asignado uso??
-    @FXML
-    private TableColumn<Incident, Long> col_Department; //variable de columna departamento  uso??
+    private TableColumn<Incident, String> col_Department; //variable de columna departamento  uso??
 
     @FXML
     private Button btnBack;
@@ -69,7 +59,11 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     void setIncidentList()  {
 
-        String getQuery = "SELECT * FROM Incidents";
+        String getQuery = "SELECT i.ID, i.Title, i.Description, i.CreatedAt, i.UpdateDate, ist.Name AS IncStatusName, st.Name AS Status, d.Name AS DepartmentName\n" +
+                "FROM Incidents i \n" +
+                "LEFT JOIN Departments d ON i.ID_Department = d.ID\n" +
+                "LEFT JOIN Incident_Severity_Types st ON i.ID_severity = st.ID\n" +
+                "LEFT JOIN Incident_Status ist ON i.ID_Status = ist.ID;";
         ObservableList<Incident> incidentList = FXCollections.observableArrayList();
 
         try {
@@ -84,12 +78,10 @@ public class CatIncidenciasController implements Initializable {
                 String description = rs.getString("Description");
                 Date createdAt = rs.getDate("CreatedAt");
                 Date updateDate = rs.getDate("UpdateDate");
-                Long id_status = rs.getLong("ID_Status");
-                Long id_severity = rs.getLong("ID_Severity");
-                Long id_creatorUser = rs.getLong("ID_CreatorUser"); //cambiar esta columna por garantias
-                Long id_assignedUser = rs.getLong("ID_AssignedUser"); //cambiar esta columna por precio
-                Long id_department = rs.getLong("ID_Department");
-                Incident incident = new Incident(title,id,description,createdAt,updateDate,id_status,id_severity,id_creatorUser,id_assignedUser,id_department);
+                String name_status = rs.getString("IncStatusName");
+                String name_severity = rs.getString("Status");
+                String name_department = rs.getString("DepartmentName");
+                Incident incident = new Incident(title,id,description,createdAt,updateDate, name_status, name_severity, name_department);
                 if(incident!=null)
                     incidentList.add(incident);
             }
@@ -144,11 +136,9 @@ public class CatIncidenciasController implements Initializable {
         col_Description.setCellValueFactory(new PropertyValueFactory<Incident, String>("description"));
         col_Created.setCellValueFactory(new PropertyValueFactory<Incident, Date>("createdAt"));
         col_Update.setCellValueFactory(new PropertyValueFactory<Incident, Date>("updateDate"));
-        col_Status.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_status"));
-        col_Severity.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_severity"));
-        col_Creator.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_creatorUser"));
-        col_Assigned.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_assignedUser"));
-        col_Department.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_department"));
+        col_Status.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_status"));
+        col_Severity.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_severity"));
+        col_Department.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_department"));
         setIncidentList();
 
         if(LoginController.sesionSingleton.isAdmin())
