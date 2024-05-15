@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="510.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.CatIncidenciasController">
+<AnchorPane prefHeight="510.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.CatIncidenciasController">
    <children>
       <TableView fx:id="tbl_incidencias" editable="true" layoutX="15.0" layoutY="94.0" prefHeight="415.0" prefWidth="901.0">
         <columns>
@@ -18,8 +15,6 @@
             <TableColumn fx:id="col_Update" prefWidth="149.0" text="Fecha de Actualizacion" />
             <TableColumn id="tbl_status" fx:id="col_Status" prefWidth="69.0" text="Estatus" />
             <TableColumn fx:id="col_Severity" prefWidth="84.0" text="Severidad" />
-            <TableColumn fx:id="col_Creator" prefWidth="57.0" text="Creador" />
-            <TableColumn fx:id="col_Assigned" prefWidth="109.0" text="Usuario Asignado" />
             <TableColumn id="tbl_department" fx:id="col_Department" prefWidth="91.0" text="Departamento" />
         </columns>
          <columnResizePolicy>
