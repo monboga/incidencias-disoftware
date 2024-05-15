@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.departmentcontrollers.DetalleDepartamentoController">
+<AnchorPane prefHeight="400.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.serverscontrollers.DetalleServersController">
     <children>
-        <Label layoutX="34.0" layoutY="24.0" prefHeight="17.0" prefWidth="146.0" text="Detalle de departamento ">
+        <Label layoutX="34.0" layoutY="24.0" prefHeight="17.0" prefWidth="146.0" text="Detalle de servidor">
             <font>
             </font>
         </Label>
