@@ -1,5 +1,7 @@
 package src.javasqlriskmanager.controllers.incidentcontrollers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static src.javasqlriskmanager.MainApplication.principalStage;
@@ -60,6 +66,18 @@ public class DetalleIncidenciaController implements Initializable {
     Button saveButton;
 
 
+
+    @FXML
+    ChoiceBox<String> listStatus;
+
+    @FXML
+    ChoiceBox<String> listDepartment;
+
+    Map<String,Long> severitiesMap = new HashMap<>();
+    Map<String,Long> departamentsMap = new HashMap<>();
+    Map<String,Long> statusMap = new HashMap<>();
+
+
     public void editarUsuario() {
         // Habilitar la edición de campos
         title.setDisable(false);
@@ -77,15 +95,17 @@ public class DetalleIncidenciaController implements Initializable {
 
     public void guardarCambios() {
         // Obtener los valores actualizados de los campos
+        // obtiene la fecha y hora actual en LocalDateTime
+        LocalDateTime currentDateTime = LocalDateTime.now();
         Incident incident = IncidentSingleton.getInstance().getIncident();
         incident.setId((long) Integer.parseInt(idNumber.getText()));
         String usertitle = title.getText();
         String userdescription = description.getText();
         String usercreatedDate = createdDate.getText();
         String userUpdateDate = updateDate.getText();
-        long userStatus = Long.parseLong(status.getText());
-        long userSeverity = Long.parseLong(severity.getText());
-        long userDepartament = Long.parseLong(departament.getText());
+        String userStatus = status.getText();
+        String userSeverity = severity.getText();
+        String userDepartament = departament.getText();
 
         // Crear una conexión a la base de datos
         Connection con = ConnectToDB.connectToDB();
@@ -104,12 +124,16 @@ public class DetalleIncidenciaController implements Initializable {
             PreparedStatement pstmt = con.prepareStatement(updateQuery);
             pstmt.setString(1, usertitle);
             pstmt.setString(2, userdescription);
+
+
+
             pstmt.setString(3, usercreatedDate);
-            pstmt.setString(4, userUpdateDate);
-            pstmt.setString(5, String.valueOf(userStatus));
-            pstmt.setString(6, String.valueOf(userSeverity));
-            pstmt.setString(9, String.valueOf(userDepartament));
-            pstmt.setLong(10, incident.getId());
+            pstmt.setObject(4, userUpdateDate);
+
+            pstmt.setString(5, userStatus);
+            pstmt.setString(6, userSeverity);
+            pstmt.setString(7, userDepartament);
+            pstmt.setLong(8, incident.getId());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -168,12 +192,13 @@ public class DetalleIncidenciaController implements Initializable {
         incidentDetail.setText("Detalle de incidencia #" + incident.getId());
         title.setText(incident.getTitle());
         idNumber.setText(incident.getId().toString());
-        status.setText(incident.getId_status());
         description.setText(incident.getDescription());
         createdDate.setText(incident.getCreatedAt().toString());
-        departament.setText(incident.getId_department());
-        severity.setText(incident.getId_severity());
         updateDate.setText(incident.getUpdateDate().toString());
+
+        loadIncidentSeverities();
+        loadIncidentDepartaments();
+        loadStatus();
 
         title.setDisable(true);
         description.setDisable(true);
@@ -188,6 +213,81 @@ public class DetalleIncidenciaController implements Initializable {
         editButton.setDisable(false);
         saveButton.setDisable(true);
 
+    }
+
+
+    private void loadStatus() {
+        String selectQuery = "SELECT * FROM Incident_Status";
+
+        try {
+            Connection con = ConnectToDB.connectToDB();
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                statusMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void loadIncidentDepartaments() {
+        ObservableList<String> departaments = FXCollections.observableArrayList();
+
+        String selectQuery = "SELECT * FROM Departments";
+
+        try {
+            Connection con = ConnectToDB.connectToDB();
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                departaments.add(resultSet.getString("Name"));
+                departamentsMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        listDepartment.setItems(departaments);
+        if(departaments.size()>0)
+            listDepartment.setValue(departaments.get(0));
+    }
+
+    @FXML
+    ChoiceBox<String> listSeverity;
+
+
+    private void loadIncidentSeverities() {
+        ObservableList<String> severities = FXCollections.observableArrayList();
+        String selectQuery = "SELECT * FROM Incident_Severity_Types";
+
+        try {
+            Connection con = ConnectToDB.connectToDB();
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                severities.add(resultSet.getString("Name"));
+                severitiesMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        listSeverity.setItems(severities);
+        if(severities.size()>0)
+            listSeverity.setValue(severities.get(0));
     }
 
     public void delete(ActionEvent actionEvent) throws IOException {
