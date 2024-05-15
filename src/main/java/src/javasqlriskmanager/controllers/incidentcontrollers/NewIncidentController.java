@@ -136,8 +136,8 @@ public class NewIncidentController {
             preparedStatement.setObject(3, java.sql.Timestamp.valueOf(currentDateTime)); // CreatedAt
             preparedStatement.setObject(4, java.sql.Timestamp.valueOf(currentDateTime)); // UpdateDate
 
-            //            preparedStatement.setDate(3,new Date(System.currentTimeMillis()));
-            //            preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
+            //preparedStatement.setDate(3,new Date(System.currentTimeMillis()));
+            //preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
             preparedStatement.setLong(5,statusMap.get("ABIERTA"));
             preparedStatement.setLong(6,severitiesMap.get(ListSeveridad.getValue()));
             preparedStatement.setLong(7,departamentsMap.get(ListDep.getValue()));
