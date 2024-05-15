@@ -37,9 +37,6 @@ public class DetalleDepartamentoController implements Initializable {
     TextField phone;
 
     @FXML
-    TextField type;
-
-    @FXML
     Button editButton;
 
     @FXML
@@ -50,7 +47,6 @@ public class DetalleDepartamentoController implements Initializable {
         email.setDisable(false);
         name.setDisable(false);
         phone.setDisable(false);
-        type.setDisable(false);
 
         // Deshabilitar el botón "Editar" y habilitar el botón "Guardar"
         editButton.setDisable(true);
@@ -63,7 +59,6 @@ public class DetalleDepartamentoController implements Initializable {
         String userName = name.getText();
         String userEmail = email.getText();
         String userPhone = phone.getText();
-        long userDepartment = Long.parseLong(type.getText());
 
         // Crear una conexión a la base de datos
         Connection con = ConnectToDB.connectToDB();
@@ -75,7 +70,7 @@ public class DetalleDepartamentoController implements Initializable {
         }
 
         // Construir la sentencia SQL UPDATE
-        String updateQuery = "UPDATE Departments SET Name = ?, Email = ?, Phone = ?, ID_DepType = ? WHERE ID = ?";
+        String updateQuery = "UPDATE Departments SET Name = ?, Email = ?, Phone = ? WHERE ID = ?";
 
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
@@ -83,8 +78,6 @@ public class DetalleDepartamentoController implements Initializable {
             pstmt.setString(1, userName);
             pstmt.setString(2, userEmail);
             pstmt.setString(3, userPhone);
-            pstmt.setLong(4, userDepartment);
-            pstmt.setLong(5, department.getID());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -106,7 +99,6 @@ public class DetalleDepartamentoController implements Initializable {
             email.setDisable(true);
             name.setDisable(true);
             phone.setDisable(true);
-            type.setDisable(true);
             editButton.setDisable(false);
             saveButton.setDisable(true);
 
@@ -139,12 +131,10 @@ public class DetalleDepartamentoController implements Initializable {
         name.setText(department.getName());
         email.setText(department.getEmail());
         phone.setText(department.getPhone());
-        type.setText(department.getID_DepType().toString());
 
         email.setDisable(true);
         name.setDisable(true);
         phone.setDisable(true);
-        type.setDisable(true);
 
         // Habilitar el botón "Editar"
         editButton.setDisable(false);
