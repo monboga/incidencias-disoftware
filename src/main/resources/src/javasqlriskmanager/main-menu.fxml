@@ -48,7 +48,14 @@
       <Button fx:id="btnCatDepartamentos" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="372.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToDeptos" prefHeight="149.0" prefWidth="172.0" style="-fx-background-color: #75E2FF;" text="Catálogo de departamentos" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="262.0">
          <font>
             <Font name="Verdana Bold" size="17.0" />
-         </font></Button>
+         </font>
+         <graphic>
+            <ImageView depthTest="ENABLE" fitHeight="98.0" fitWidth="93.0" pickOnBounds="true">
+               <image>
+                  <Image url="@images/departamentos.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Button fx:id="btnCatRoles" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="372.0" layoutY="130.0" mnemonicParsing="false" nodeOrientation="INHERIT" onAction="#goToRoles" prefHeight="125.0" prefWidth="172.0" style="-fx-background-color: #FB704A;" text="Catálogo de roles" AnchorPane.bottomAnchor="198.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="130.0">
          <font>
             <Font name="Verdana Bold" size="13.0" />
@@ -60,20 +67,17 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <ImageView fitHeight="98.0" fitWidth="93.0" layoutX="412.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/departamentos.png" />
-         </image>
-      </ImageView>
       <Button fx:id="btnCatServers" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="554.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToServers" prefHeight="149.0" prefWidth="172.0" style="-fx-background-color: #98EC5B;" text="Catálogo de Servidores" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Verdana Bold" size="16.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="98.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/servers.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <ImageView fitHeight="98.0" fitWidth="93.0" layoutX="594.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/servers.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
