@@ -62,6 +62,17 @@ public class MainMenuController {
     }
 
     @FXML
+    protected void goToServers() throws IOException{
+        principalStage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("CatServidores.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        principalStage.setTitle("Catálogo de servidores");
+        principalStage.setScene(scene);
+        principalStage.setResizable(false);
+        principalStage.show();
+    }
+
+    @FXML
     protected void goToRoles() throws IOException{
         principalStage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("CatRoles.fxml"));
