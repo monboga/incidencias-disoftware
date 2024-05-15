@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.serverscontrollers.DetalleServersController">
+<AnchorPane prefHeight="400.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.serverscontrollers.DetalleServersController">
     <children>
         <Label layoutX="34.0" layoutY="24.0" prefHeight="17.0" prefWidth="146.0" text="Detalle de servidor">
             <font>
@@ -16,20 +16,23 @@
             <font>
             </font>
         </Button>
-        <Button fx:id="editButton" layoutX="339.0" layoutY="351.0" mnemonicParsing="false" onAction="#editarUsuario" style="-fx-background-color: #EBA000;" text="Editar" textFill="WHITE">
+        <Button fx:id="editButton" layoutX="339.0" layoutY="351.0" mnemonicParsing="false" onAction="#editServer" style="-fx-background-color: #EBA000;" text="Editar" textFill="WHITE">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-      <Label layoutX="98.0" layoutY="123.0" text="Nombre" />
-      <Label layoutX="96.0" layoutY="170.0" text="Correo" />
-      <Label layoutX="96.0" layoutY="214.0" text="Telefono" />
-      <Label layoutX="101.0" layoutY="260.0" text="Tipo" />
-      <TextField fx:id="name" editable="true" layoutX="173.0" layoutY="119.0" style="-fx-text-fill: #777777;" />
-      <TextField fx:id="email" editable="true" layoutX="173.0" layoutY="166.0" style="-fx-text-fill: #777777;" />
-      <TextField fx:id="phone" editable="true" layoutX="173.0" layoutY="210.0" style="-fx-text-fill: #777777;" />
-      <TextField fx:id="type" editable="true" layoutX="173.0" layoutY="256.0" style="-fx-text-fill: #777777;" />
-        <Button fx:id="saveButton" layoutX="248.0" layoutY="351.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #317f43;" text="Guardar" textFill="WHITE">
+        <Label layoutX="31.0" layoutY="73.0" text="Nombre" />
+        <Label layoutX="31.0" layoutY="129.0" text="Descripción" />
+        <Label layoutX="27.0" layoutY="214.0" text="Precio" />
+        <Label layoutX="31.0" layoutY="275.0" text="Garantía (años)" />
+        <Label layoutX="209.0" layoutY="249.0" text="Precio Total" />
+
+        <TextField fx:id="name" editable="true" layoutX="34.0" layoutY="91.0" prefHeight="26.0" prefWidth="237.0" style="-fx-text-fill: #777777;" />
+        <TextField fx:id="description" editable="true" layoutX="34.0" layoutY="147.0" prefHeight="59.0" prefWidth="238.0" style="-fx-text-fill: #777777;" />
+        <TextField fx:id="price" editable="true" layoutX="32.0" layoutY="236.0" style="-fx-text-fill: #777777;" />
+        <TextField fx:id="warranty" editable="true" layoutX="32.0" layoutY="293.0" style="-fx-text-fill: #777777;" />
+        <TextField fx:id="totalCost" editable="true" layoutX="209.0" layoutY="271.0" style="-fx-text-fill: #777777;" />
+        <Button fx:id="saveButton" layoutX="248.0" layoutY="351.0" mnemonicParsing="false" onAction="#saveServerChanges" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #317f43;" text="Guardar" textFill="WHITE">
             <font>
                 <Font size="14.0" />
             </font>

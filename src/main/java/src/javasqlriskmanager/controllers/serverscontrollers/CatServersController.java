@@ -12,8 +12,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import src.javasqlriskmanager.MainApplication;
-import src.javasqlriskmanager.models.Department;
-import src.javasqlriskmanager.singletons.DepartmentSingleton;
+import src.javasqlriskmanager.models.Server;
+import src.javasqlriskmanager.singletons.ServerSingleton;
 import src.javasqlriskmanager.utils.ConnectToDB;
 
 import java.io.IOException;
@@ -29,26 +29,29 @@ import static src.javasqlriskmanager.MainApplication.principalStage;
 public class CatServersController implements Initializable {
 
     @FXML
-    TableView<Department> tbl_Server;
+    TableView<Server> tbl_Server;
 
     @FXML
-    private TableColumn<Department, Long> col_id;
+    private TableColumn<Server, Long> col_id;
     @FXML
-    private TableColumn<Department, String> col_servidor;
+    private TableColumn<Server, String> col_servidor;
     @FXML
-    private TableColumn<Department, String> col_descripcion;
+    private TableColumn<Server, String> col_descripcion;
     @FXML
-    private TableColumn<Department, String> col_precio;
+    private TableColumn<Server, String> col_precio;
     @FXML
-    private TableColumn<Department, Long> col_garantia;
-
-    DepartmentSingleton departmentSingleton;
+    private TableColumn<Server, Long> col_garantia;
 
     @FXML
-    void setDepartmentList()  {
+    private TableColumn<Server, Long> col_costoTotal;
 
-        String getQuery = "SELECT * FROM Departments";
-        ObservableList<Department> departmentList = FXCollections.observableArrayList();
+    ServerSingleton serverSingleton;
+
+    @FXML
+    void setServerList() {
+
+        String getQuery = "SELECT * FROM Servers";
+        ObservableList<Server> serverList = FXCollections.observableArrayList();
 
         try {
             Connection con = ConnectToDB.connectToDB();
@@ -59,13 +62,13 @@ public class CatServersController implements Initializable {
             while (rs.next()) {
 
                 Long ID = rs.getLong("ID");
-                String Name = rs.getString("Name");
-                String Email = rs.getString("Email");
-                String Phone = rs.getString("Phone");
-                Long ID_DepType = rs.getLong("ID_DepType");
-                Department department = new Department(ID, Name, Email, Phone,ID_DepType);
-                if(department!=null)
-                    departmentList.add(department);
+                String Server = rs.getString("Server");
+                String Description = rs.getString("Description");
+                String Price = rs.getString("Price");
+                String warranty = rs.getString("Warranty");
+                String TotalCost = rs.getString("TotalCost");
+                Server server = new Server (ID, Server, Description, Price, Long.parseLong(warranty), TotalCost);
+                    serverList.add(server);
             }
 
             con.close();
@@ -75,16 +78,16 @@ public class CatServersController implements Initializable {
             e.printStackTrace();
         }
 
-        tbl_Server.setItems(departmentList);
+        tbl_Server.setItems(serverList);
 
-        tbl_Server.setRowFactory( tv -> {
-            TableRow<Department> row = new TableRow<>();
+        tbl_Server.setRowFactory(tv -> {
+            TableRow<Server> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Department rowData = row.getItem();
-                    departmentSingleton = DepartmentSingleton.getInstance();
-                    departmentSingleton.setDepartment(rowData);
-                    //System.out.println(rowData.toString());
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Server rowData = row.getItem();
+                    serverSingleton = ServerSingleton.getInstance();
+                    serverSingleton.setServer(rowData);
+                    // System.out.println(rowData.toString());
 
                     try {
                         irDetalle();
@@ -100,12 +103,13 @@ public class CatServersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        col_id.setCellValueFactory(new PropertyValueFactory<Department, Long>("ID")); //Nombre segun como se llama en el model
-        col_servidor.setCellValueFactory(new PropertyValueFactory<Department, String>("Name"));
-        col_descripcion.setCellValueFactory(new PropertyValueFactory<Department, String>("Email"));
-        col_precio.setCellValueFactory(new PropertyValueFactory<Department, String>("Phone"));
-        col_garantia.setCellValueFactory(new PropertyValueFactory<Department, Long>("ID_DepType"));
-        setDepartmentList();
+        col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        col_servidor.setCellValueFactory(new PropertyValueFactory<>("Server"));
+        col_descripcion.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        col_precio.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        col_garantia.setCellValueFactory(new PropertyValueFactory<>("Warranty"));
+        col_costoTotal.setCellValueFactory(new PropertyValueFactory<>("TotalCost"));
+        setServerList();
     }
 
     public void irMenuPrincipal() throws IOException {
@@ -133,7 +137,7 @@ public class CatServersController implements Initializable {
         principalStage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("new-servers.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        principalStage.setTitle("Nueva Server");
+        principalStage.setTitle("Nuevo Server");
         principalStage.setScene(scene);
         principalStage.setResizable(false);
         principalStage.show();
