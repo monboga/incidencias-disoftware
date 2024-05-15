@@ -1,5 +1,6 @@
 package src.javasqlriskmanager.controllers.userscontrollers;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,16 +41,16 @@ public class CatUsuariosController implements Initializable {
     @FXML
     private TableColumn<Usuario, String> col_posicion;
     @FXML
-    private TableColumn<Usuario, Long> col_rol;
+    private TableColumn<Usuario, String> col_rol;
     @FXML
-    private TableColumn<Usuario, Long> col_departamento;
+    private TableColumn<Usuario, String> col_departamento;
     @FXML
     private TableColumn<Usuario, String> col_pass;
 
     UserSingleton userSingleton;
 
     @FXML
-    void setUsuariosList()  {
+    void setUsuariosList() {
 
         String getQuery = "SELECT * FROM Users";
         ObservableList<Usuario> usuarioList = FXCollections.observableArrayList();
@@ -68,8 +69,8 @@ public class CatUsuariosController implements Initializable {
                 Long ID_Role = rs.getLong("ID_Role");
                 Long ID_Department = rs.getLong("ID_Department");
                 String Password = rs.getString("Password");
-                Usuario usuario = new Usuario(ID,Name,Email, Position,ID_Role,ID_Department, Password);
-                if(usuario!=null)
+                Usuario usuario = new Usuario(ID, Name, Email, Position, ID_Role, ID_Department, Password);
+                if (usuario != null)
                     usuarioList.add(usuario);
             }
 
@@ -77,21 +78,19 @@ public class CatUsuariosController implements Initializable {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-                e.printStackTrace();
+            e.printStackTrace();
         }
 
         tbl_Usuarios.setItems(usuarioList);
 
-        tbl_Usuarios.setRowFactory( tv -> {
+        tbl_Usuarios.setRowFactory(tv -> {
             TableRow<Usuario> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Usuario rowData = row.getItem();
 
                     userSingleton = UserSingleton.getInstance();
                     userSingleton.setUsuario(rowData);
-
-                    //System.out.println(rowData.toString());
 
                     try {
                         irDetalle();
@@ -104,17 +103,74 @@ public class CatUsuariosController implements Initializable {
         });
 
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        col_id.setCellValueFactory(new PropertyValueFactory<Usuario, Long>("ID")); //Nombre segun como se llama en el model
-        col_nombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Name")); //Nombre segun como se llama en el model
-        col_email.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Email")); //Nombre segun como se llama en el model
-        col_posicion.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Position")); //Nombre segun como se llama en el model
-        col_rol.setCellValueFactory(new PropertyValueFactory<Usuario, Long>("ID_Role")); //Nombre segun como se llama en el model
-        col_departamento.setCellValueFactory(new PropertyValueFactory<Usuario, Long>("ID_Department")); //Nombre segun como se llama en el model
-        col_pass.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Password")); //Nombre segun como se llama en el model
+        col_id.setCellValueFactory(new PropertyValueFactory<Usuario, Long>("ID"));
+        col_nombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Name"));
+        col_email.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Email"));
+        col_posicion.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Position"));
+        col_pass.setCellValueFactory(new PropertyValueFactory<Usuario, String>("Password"));
+
+        col_rol.setCellValueFactory(cellData -> {
+            Long idRol = cellData.getValue().getID_Role();
+            String nombreRol = obtenerNombreDelRol(idRol);
+            return new ReadOnlyStringWrapper(nombreRol);
+        });
+
+        col_departamento.setCellValueFactory(cellData -> {
+            Long idDepartamento = cellData.getValue().getID_Department();
+            String nombreDepartamento = obtenerNombreDelDepartamento(idDepartamento);
+            return new ReadOnlyStringWrapper(nombreDepartamento);
+        });
+
         setUsuariosList();
     }
+
+    private String obtenerNombreDelRol(Long idRol) {
+        if (idRol != null) {
+            switch (idRol.intValue()) {
+                case 1:
+                    return "Administrador";
+                case 2:
+                    return "Empleado";
+                case 3:
+                    return "Gerente";
+                // Agrega más casos según sea necesario
+                default:
+                    return "Desconocido";
+            }
+        }
+        return "";
+    }
+
+    private String obtenerNombreDelDepartamento(Long idDepartamento) {
+        if (idDepartamento != null) {
+            switch (idDepartamento.intValue()) {
+                case 1:
+                    return "ADMIN";
+                case 2:
+                    return "Recursos Humanos";
+                case 3:
+                    return "Salud y Seguridad";
+                case 4:
+                    return "Mantenimiento";
+                case 5:
+                    return "Logística";
+                case 6:
+                    return "Producción";
+                case 7:
+                    return "Seguridad";
+                case 8:
+                    return "Tecnología de la Información";
+                // Agrega más casos según sea necesario
+                default:
+                    return "Desconocido";
+            }
+        }
+        return "";
+    }
+
     public void irMenuPrincipal() throws IOException {
         principalStage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-menu.fxml"));
@@ -134,6 +190,7 @@ public class CatUsuariosController implements Initializable {
         principalStage.setResizable(false);
         principalStage.show();
     }
+
     @FXML
     protected void creaUser() throws IOException {
         principalStage.close();
@@ -144,5 +201,5 @@ public class CatUsuariosController implements Initializable {
         principalStage.setResizable(false);
         principalStage.show();
     }
-
 }
+

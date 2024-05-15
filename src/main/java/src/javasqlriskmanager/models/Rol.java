@@ -1,14 +1,13 @@
 package src.javasqlriskmanager.models;
 
 public class Rol {
+    private Long ID;
+    private String Name;
 
     public Rol(Long ID, String Name){
         this.ID = ID;
         this.Name = Name;
     }
-
-    Long ID;
-    String Name;
 
     public Long getID() {
         return ID;
@@ -34,3 +33,4 @@ public class Rol {
                 '}';
     }
 }
+
