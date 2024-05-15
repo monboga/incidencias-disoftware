@@ -41,9 +41,9 @@ public class CatIncidenciasController implements Initializable {
     TableView<Incident> tbl_incidencias;
 
     @FXML
-    private TableColumn<Incident, Long> col_id;
+    private TableColumn<Incident, Long> col_id; //variable de columna del id
     @FXML
-    private TableColumn<Incident, String> col_Title;
+    private TableColumn<Incident, String> col_Title; //variable de columna del titlo
     @FXML
     private TableColumn<Incident, String> col_Description;
     @FXML
@@ -53,13 +53,13 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     private TableColumn<Incident, Long> col_Status;
     @FXML
-    private TableColumn<Incident, Long> col_Severity;
+    private TableColumn<Incident, Long> col_Severity; //variable de columna severidad uso??
     @FXML
-    private TableColumn<Incident, Long> col_Creator;
+    private TableColumn<Incident, Long> col_Creator; //variable de columna creador uso??
     @FXML
-    private TableColumn<Incident, Long> col_Assigned;
+    private TableColumn<Incident, Long> col_Assigned; //variable de columna usuario asignado uso??
     @FXML
-    private TableColumn<Incident, Long> col_Department;
+    private TableColumn<Incident, Long> col_Department; //variable de columna departamento  uso??
 
     @FXML
     private Button btnBack;
@@ -86,8 +86,8 @@ public class CatIncidenciasController implements Initializable {
                 Date updateDate = rs.getDate("UpdateDate");
                 Long id_status = rs.getLong("ID_Status");
                 Long id_severity = rs.getLong("ID_Severity");
-                Long id_creatorUser = rs.getLong("ID_CreatorUser");
-                Long id_assignedUser = rs.getLong("ID_AssignedUser");
+                Long id_creatorUser = rs.getLong("ID_CreatorUser"); //cambiar esta columna por garantias
+                Long id_assignedUser = rs.getLong("ID_AssignedUser"); //cambiar esta columna por precio
                 Long id_department = rs.getLong("ID_Department");
                 Incident incident = new Incident(title,id,description,createdAt,updateDate,id_status,id_severity,id_creatorUser,id_assignedUser,id_department);
                 if(incident!=null)
