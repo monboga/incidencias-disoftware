@@ -39,8 +39,7 @@ public class CatDepartamentosController implements Initializable {
     private TableColumn<Department, String> col_correo;
     @FXML
     private TableColumn<Department, String> col_telefono;
-    @FXML
-    private TableColumn<Department, Long> col_tipo;
+
 
     DepartmentSingleton departmentSingleton;
 
@@ -62,8 +61,7 @@ public class CatDepartamentosController implements Initializable {
                 String Name = rs.getString("Name");
                 String Email = rs.getString("Email");
                 String Phone = rs.getString("Phone");
-                Long ID_DepType = rs.getLong("ID_DepType");
-                Department department = new Department(ID, Name, Email, Phone,ID_DepType);
+                Department department = new Department(ID, Name, Email, Phone);
                 if(department!=null)
                     departmentList.add(department);
             }
@@ -104,7 +102,6 @@ public class CatDepartamentosController implements Initializable {
         col_nombre.setCellValueFactory(new PropertyValueFactory<Department, String>("Name"));
         col_correo.setCellValueFactory(new PropertyValueFactory<Department, String>("Email"));
         col_telefono.setCellValueFactory(new PropertyValueFactory<Department, String>("Phone"));
-        col_tipo.setCellValueFactory(new PropertyValueFactory<Department, Long>("ID_DepType"));
         setDepartmentList();
     }
 

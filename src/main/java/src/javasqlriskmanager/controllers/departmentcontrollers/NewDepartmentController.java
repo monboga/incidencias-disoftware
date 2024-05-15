@@ -33,50 +33,45 @@ public class NewDepartmentController {
     TextField phone;
 
     @FXML
-    ChoiceBox<String> depType;
-
-    Map<String,Long> departamentTypesMap = new HashMap<>();
-    @FXML
     public void initialize(){
-        loadDepTypes();
+
     }
 
-    public void loadDepTypes(){
-        ObservableList<String> departamentTypes = FXCollections.observableArrayList();
-        String selectQuery = "SELECT * FROM Department_Types";
-
-        try {
-            Connection con = ConnectToDB.connectToDB();
-            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                departamentTypes.add(resultSet.getString("Name"));
-                departamentTypesMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
-            }
-
-            con.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-                e.printStackTrace();
-        }
-
-        depType.setItems(departamentTypes);
-        if(departamentTypes.size()>0)
-            depType.setValue(departamentTypes.get(0));
-    }
+//    public void loadDepTypes(){
+//        ObservableList<String> departamentTypes = FXCollections.observableArrayList();
+//        String selectQuery = "SELECT * FROM Department_Types";
+//
+//        try {
+//            Connection con = ConnectToDB.connectToDB();
+//            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                departamentTypes.add(resultSet.getString("Name"));
+//                departamentTypesMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
+//            }
+//
+//            con.close();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//                e.printStackTrace();
+//        }
+//
+//        depType.setItems(departamentTypes);
+//        if(departamentTypes.size()>0)
+//            depType.setValue(departamentTypes.get(0));
+//    }
 
     public void createDepartment() throws IOException {
         String insertQuery = "INSERT INTO Departments " +
-                "(Name, Email, Phone, ID_DepType)" +
-                " VALUES (?, ?, ?, ?)";
+                "(Name, Email, Phone)" +
+                " VALUES (?, ?, ?)";
         try {
             Connection con = ConnectToDB.connectToDB();
             PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
             preparedStatement.setString(1, name.getText());
             preparedStatement.setString(2, email.getText());
             preparedStatement.setString(3, phone.getText());
-            preparedStatement.setLong(4, departamentTypesMap.get(depType.getValue()));
             preparedStatement.executeUpdate();
             con.close();
         } catch (SQLException e) {
