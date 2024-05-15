@@ -37,13 +37,6 @@ public class CatServersController implements Initializable {
     private TableColumn<Server, String> col_servidor;
     @FXML
     private TableColumn<Server, String> col_descripcion;
-    @FXML
-    private TableColumn<Server, String> col_precio;
-    @FXML
-    private TableColumn<Server, Long> col_garantia;
-
-    @FXML
-    private TableColumn<Server, Long> col_costoTotal;
 
     ServerSingleton serverSingleton;
 
@@ -64,10 +57,7 @@ public class CatServersController implements Initializable {
                 Long ID = rs.getLong("ID");
                 String Server = rs.getString("Server");
                 String Description = rs.getString("Description");
-                String Price = rs.getString("Price");
-                String warranty = rs.getString("Warranty");
-                String TotalCost = rs.getString("TotalCost");
-                Server server = new Server (ID, Server, Description, Price, Long.parseLong(warranty), TotalCost);
+                Server server = new Server (ID, Server, Description);
                     serverList.add(server);
             }
 
@@ -106,9 +96,6 @@ public class CatServersController implements Initializable {
         col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         col_servidor.setCellValueFactory(new PropertyValueFactory<>("Server"));
         col_descripcion.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        col_precio.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        col_garantia.setCellValueFactory(new PropertyValueFactory<>("Warranty"));
-        col_costoTotal.setCellValueFactory(new PropertyValueFactory<>("TotalCost"));
         setServerList();
     }
 

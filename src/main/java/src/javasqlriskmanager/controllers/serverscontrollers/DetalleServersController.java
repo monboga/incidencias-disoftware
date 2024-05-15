@@ -55,9 +55,6 @@ public class DetalleServersController implements Initializable {
         // Habilitar la edición de campos
         name.setDisable(false);
         description.setDisable(false);
-        price.setDisable(false);
-        warranty.setDisable(false);
-        totalCost.setDisable(false);
         editButton.setDisable(true);
         saveButton.setDisable(false);
     }
@@ -75,7 +72,7 @@ public class DetalleServersController implements Initializable {
         }
 
         // Construir la sentencia SQL UPDATE
-        String updateQuery = "UPDATE Departments SET Name = ?, Email = ?, Phone = ?, ID_DepType = ? WHERE ID = ?";
+        String updateQuery = "UPDATE Servers SET Server = ?, Description = ? WHERE ID = ?";
 
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
@@ -83,11 +80,8 @@ public class DetalleServersController implements Initializable {
 
             // Establecer los valores de los parámetros de la sentencia UPDATE
             pstmt.setString(1, name.getText());
-            pstmt.setString(1, description.getText());
-            pstmt.setString(2, price.getText());
-            pstmt.setString(3, warranty.getText());
-            pstmt.setString(4, totalCost.getText());
-            pstmt.setLong(4, DepartmentSingleton.getInstance().getDepartment().getID());
+            pstmt.setString(2, description.getText());
+            pstmt.setLong(3, DepartmentSingleton.getInstance().getDepartment().getID());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -108,9 +102,6 @@ public class DetalleServersController implements Initializable {
             // Deshabilitar la edición de campos y habilitar el botón "Editar"
             name.setDisable(true);
             description.setDisable(true);
-            price.setDisable(true);
-            warranty.setDisable(true);
-            totalCost.setDisable(true);
             editButton.setDisable(false);
             saveButton.setDisable(true);
 
@@ -142,16 +133,10 @@ public class DetalleServersController implements Initializable {
 
         name.setText(server.getServer());
         description.setText(server.getDescription());
-        price.setText(server.getPrice());
-        warranty.setText(String.valueOf(server.getWarranty()));
-        totalCost.setText(server.getTotalCost());
 
         // Deshabilitar la edición de campos
         name.setDisable(true);
         description.setDisable(true);
-        price.setDisable(true);
-        warranty.setDisable(true);
-        totalCost.setDisable(true);
 
         // Habilitar el botón "Editar"
         editButton.setDisable(false);

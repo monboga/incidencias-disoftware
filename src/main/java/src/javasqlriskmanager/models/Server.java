@@ -2,23 +2,20 @@ package src.javasqlriskmanager.models;
 
 public class Server {
     
-        long ID;
-        String Server;
-        String Description;
-        String Price;
-        long Warranty;
-        String TotalCost;
-    
-        public Server(long ID, String Server, String Description, String Price, long Warranty, String TotalCost) {
-            this.ID = ID;
-            this.Server = Server;
-            this.Description = Description;
-            this.Price = Price;
-            this.Warranty = Warranty;
-            this.TotalCost = TotalCost;
-        }
+    long ID;
+    String Server;
+    String Description;
 
-        public long getID() {
+    public Server() {
+    }
+
+    public Server(long ID, String server, String description) {
+        this.ID = ID;
+        Server = server;
+        Description = description;
+    }
+
+    public long getID() {
             return ID;
         }
 
@@ -42,27 +39,5 @@ public class Server {
             Description = description;
         }
 
-        public String getPrice() {
-            return Price;
-        }
 
-        public void setPrice(String price) {
-            Price = price;
-        }
-
-        public long getWarranty() {
-            return Warranty;
-        }
-
-        public void setWarranty(long Warranty) {
-            this.Warranty = Warranty;
-        }
-
-        public String getTotalCost() {
-            return TotalCost;
-        }
-
-        public void setTotalCost(String TotalCost) {
-            this.TotalCost = TotalCost;
-        }
 }
