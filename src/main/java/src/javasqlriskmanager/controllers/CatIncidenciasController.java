@@ -47,20 +47,20 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     private TableColumn<Incident, Date> col_Update;
     @FXML
-    private TableColumn<Incident, Long> col_Status;
+    private TableColumn<Incident, String> col_Status;
     @FXML
-    private TableColumn<Incident, Long> col_Severity;
+    private TableColumn<Incident, String> col_Severity;
     @FXML
-    private TableColumn<Incident, Long> col_Creator;
-    @FXML
-    private TableColumn<Incident, Long> col_Assigned;
-    @FXML
-    private TableColumn<Incident, Long> col_Department;
+    private TableColumn<Incident, String> col_Department;
 
     @FXML
     void setIncidentList()  {
 
-        String getQuery = "SELECT * FROM Incidents";
+        String getQuery = "SELECT i.ID, i.Title, i.Description, i.CreatedAt, i.UpdateDate, ist.Name, st.Name, d.Name\n" +
+                "FROM Incidents i \n" +
+                "LEFT JOIN Departments d ON i.ID_Department = d.ID\n" +
+                "LEFT JOIN Incident_Severity_Types st ON i.ID_severity = st.ID\n" +
+                "LEFT JOIN Incident_Status ist ON i.ID_Status = ist.ID;";
         ObservableList<Incident> incidentList = FXCollections.observableArrayList();
 
         try {
@@ -75,12 +75,10 @@ public class CatIncidenciasController implements Initializable {
                 String description = rs.getString("Description");
                 Date createdAt = rs.getDate("CreatedAt");
                 Date updateDate = rs.getDate("UpdateDate");
-                Long id_status = rs.getLong("ID_Status");
-                Long id_severity = rs.getLong("ID_Severity");
-                Long id_creatorUser = rs.getLong("ID_CreatorUser");
-                Long id_assignedUser = rs.getLong("ID_AssignedUser");
-                Long id_department = rs.getLong("ID_Department");
-                Incident incident = new Incident(title,id,description,createdAt,updateDate,id_status,id_severity,id_creatorUser,id_assignedUser,id_department);
+                String name_status = rs.getString("ist.Name");
+                String name_severity = rs.getString("st.Name");
+                String name_department = rs.getString("d.Name");
+                Incident incident = new Incident(title,id,description,createdAt,updateDate,name_status,name_severity,name_department);
                 if(incident!=null)
                     incidentList.add(incident);
             }
@@ -130,11 +128,9 @@ public class CatIncidenciasController implements Initializable {
         col_Description.setCellValueFactory(new PropertyValueFactory<Incident, String>("description"));
         col_Created.setCellValueFactory(new PropertyValueFactory<Incident, Date>("createdAt"));
         col_Update.setCellValueFactory(new PropertyValueFactory<Incident, Date>("updateDate"));
-        col_Status.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_status"));
-        col_Severity.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_severity"));
-        col_Creator.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_creatorUser"));
-        col_Assigned.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_assignedUser"));
-        col_Department.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id_department"));
+        col_Status.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_status"));
+        col_Severity.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_severity"));
+        col_Department.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_department"));
         setIncidentList();
     }
 
