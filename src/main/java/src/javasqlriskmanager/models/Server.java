@@ -6,14 +6,16 @@ public class Server {
         String Server;
         String Description;
         String Price;
-        long warranty;
+        long Warranty;
+        String TotalCost;
     
-        public Server(long ID, String Server, String Description, String Price, long warranty) {
+        public Server(long ID, String Server, String Description, String Price, long Warranty, String TotalCost) {
             this.ID = ID;
             this.Server = Server;
             this.Description = Description;
             this.Price = Price;
-            this.warranty = warranty;
+            this.Warranty = Warranty;
+            this.TotalCost = TotalCost;
         }
 
         public long getID() {
@@ -49,11 +51,18 @@ public class Server {
         }
 
         public long getWarranty() {
-            return warranty;
+            return Warranty;
         }
 
-        public void setWarranty(long warranty) {
-            this.warranty = warranty;
+        public void setWarranty(long Warranty) {
+            this.Warranty = Warranty;
         }
 
+        public String getTotalCost() {
+            return TotalCost;
+        }
+
+        public void setTotalCost(String TotalCost) {
+            this.TotalCost = TotalCost;
+        }
 }
