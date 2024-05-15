@@ -10,8 +10,10 @@ import javafx.scene.control.TextField;
 import src.javasqlriskmanager.MainApplication;
 import src.javasqlriskmanager.models.Department;
 import src.javasqlriskmanager.models.Rol;
+import src.javasqlriskmanager.models.Server;
 import src.javasqlriskmanager.singletons.DepartmentSingleton;
 import src.javasqlriskmanager.singletons.RolSingleton;
+import src.javasqlriskmanager.singletons.ServerSingleton;
 import src.javasqlriskmanager.utils.ConnectToDB;
 import src.javasqlriskmanager.singletons.UserSingleton;
 import src.javasqlriskmanager.utils.ConnectToDB;
@@ -27,17 +29,21 @@ import static src.javasqlriskmanager.MainApplication.principalStage;
 
 public class DetalleServersController implements Initializable {
 
+
     @FXML
     TextField name;
 
     @FXML
-    TextField email;
+    TextField description;
 
     @FXML
-    TextField phone;
+    TextField price;
 
     @FXML
-    TextField type;
+    TextField warranty;
+
+    @FXML
+    TextField totalCost;
 
     @FXML
     Button editButton;
@@ -45,25 +51,19 @@ public class DetalleServersController implements Initializable {
     @FXML
     Button saveButton;
 
-    public void editarUsuario() {
+    public void editServer() {
         // Habilitar la edición de campos
-        email.setDisable(false);
         name.setDisable(false);
-        phone.setDisable(false);
-        type.setDisable(false);
-
-        // Deshabilitar el botón "Editar" y habilitar el botón "Guardar"
+        description.setDisable(false);
+        price.setDisable(false);
+        warranty.setDisable(false);
+        totalCost.setDisable(false);
         editButton.setDisable(true);
         saveButton.setDisable(false);
     }
 
-    public void guardarCambios() {
+    public void saveServerChanges() {
         // Obtener los valores actualizados de los campos
-        Department department = DepartmentSingleton.getInstance().getDepartment();
-        String userName = name.getText();
-        String userEmail = email.getText();
-        String userPhone = phone.getText();
-        long userDepartment = Long.parseLong(type.getText());
 
         // Crear una conexión a la base de datos
         Connection con = ConnectToDB.connectToDB();
@@ -80,11 +80,14 @@ public class DetalleServersController implements Initializable {
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
             PreparedStatement pstmt = con.prepareStatement(updateQuery);
-            pstmt.setString(1, userName);
-            pstmt.setString(2, userEmail);
-            pstmt.setString(3, userPhone);
-            pstmt.setLong(4, userDepartment);
-            pstmt.setLong(5, department.getID());
+
+            // Establecer los valores de los parámetros de la sentencia UPDATE
+            pstmt.setString(1, name.getText());
+            pstmt.setString(1, description.getText());
+            pstmt.setString(2, price.getText());
+            pstmt.setString(3, warranty.getText());
+            pstmt.setString(4, totalCost.getText());
+            pstmt.setLong(4, DepartmentSingleton.getInstance().getDepartment().getID());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -103,10 +106,11 @@ public class DetalleServersController implements Initializable {
             con.close();
 
             // Deshabilitar la edición de campos y habilitar el botón "Editar"
-            email.setDisable(true);
             name.setDisable(true);
-            phone.setDisable(true);
-            type.setDisable(true);
+            description.setDisable(true);
+            price.setDisable(true);
+            warranty.setDisable(true);
+            totalCost.setDisable(true);
             editButton.setDisable(false);
             saveButton.setDisable(true);
 
@@ -134,17 +138,20 @@ public class DetalleServersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Department department = DepartmentSingleton.getInstance().getDepartment();
+        Server server = ServerSingleton.getInstance().getServer();
 
-        name.setText(department.getName());
-        email.setText(department.getEmail());
-        phone.setText(department.getPhone());
-        type.setText(department.getID_DepType().toString());
+        name.setText(server.getServer());
+        description.setText(server.getDescription());
+        price.setText(server.getPrice());
+        warranty.setText(String.valueOf(server.getWarranty()));
+        totalCost.setText(server.getTotalCost());
 
-        email.setDisable(true);
+        // Deshabilitar la edición de campos
         name.setDisable(true);
-        phone.setDisable(true);
-        type.setDisable(true);
+        description.setDisable(true);
+        price.setDisable(true);
+        warranty.setDisable(true);
+        totalCost.setDisable(true);
 
         // Habilitar el botón "Editar"
         editButton.setDisable(false);
