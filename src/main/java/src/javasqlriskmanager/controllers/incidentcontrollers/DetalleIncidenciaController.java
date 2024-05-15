@@ -51,12 +51,6 @@ public class DetalleIncidenciaController implements Initializable {
     TextField severity;
 
     @FXML
-    TextField assignedUser;
-
-    @FXML
-    TextField creatorUser;
-
-    @FXML
     TextField updateDate;
 
     @FXML
@@ -74,8 +68,6 @@ public class DetalleIncidenciaController implements Initializable {
         createdDate.setDisable(false);
         departament.setDisable(false);
         severity.setDisable(false);
-        assignedUser.setDisable(false);
-        creatorUser.setDisable(false);
         updateDate.setDisable(false);
 
         // Deshabilitar el botón "Editar" y habilitar el botón "Guardar"
@@ -93,8 +85,6 @@ public class DetalleIncidenciaController implements Initializable {
         String userUpdateDate = updateDate.getText();
         long userStatus = Long.parseLong(status.getText());
         long userSeverity = Long.parseLong(severity.getText());
-        long userCreatorUser = Long.parseLong(creatorUser.getText());
-        long userAssignedUser = Long.parseLong(assignedUser.getText());
         long userDepartament = Long.parseLong(departament.getText());
 
         // Crear una conexión a la base de datos
@@ -107,7 +97,7 @@ public class DetalleIncidenciaController implements Initializable {
         }
 
         // Construir la sentencia SQL UPDATE
-        String updateQuery = "UPDATE Incidents SET Title = ?, Description = ?, CreatedAt = ?, UpdateDate = ?, ID_Status = ?, ID_severity = ?, ID_CreatorUser = ?, ID_AssignedUser = ?, ID_Department = ? WHERE ID = ?";
+        String updateQuery = "UPDATE Incidents SET Title = ?, Description = ?, CreatedAt = ?, UpdateDate = ?, ID_Status = ?, ID_severity = ?, ID_Department = ? WHERE ID = ?";
 
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
@@ -118,8 +108,6 @@ public class DetalleIncidenciaController implements Initializable {
             pstmt.setString(4, userUpdateDate);
             pstmt.setString(5, String.valueOf(userStatus));
             pstmt.setString(6, String.valueOf(userSeverity));
-            pstmt.setString(7, String.valueOf(userCreatorUser));
-            pstmt.setString(8, String.valueOf(userAssignedUser));
             pstmt.setString(9, String.valueOf(userDepartament));
             pstmt.setLong(10, incident.getId());
 
@@ -147,8 +135,6 @@ public class DetalleIncidenciaController implements Initializable {
             createdDate.setDisable(true);
             departament.setDisable(true);
             severity.setDisable(true);
-            assignedUser.setDisable(true);
-            creatorUser.setDisable(true);
             updateDate.setDisable(true);
 
             editButton.setDisable(false);
@@ -182,13 +168,11 @@ public class DetalleIncidenciaController implements Initializable {
         incidentDetail.setText("Detalle de incidencia #" + incident.getId());
         title.setText(incident.getTitle());
         idNumber.setText(incident.getId().toString());
-        status.setText(incident.getId_status().toString());
+        status.setText(incident.getId_status());
         description.setText(incident.getDescription());
         createdDate.setText(incident.getCreatedAt().toString());
-        departament.setText(incident.getId_department().toString());
-        severity.setText(incident.getId_severity().toString());
-        assignedUser.setText(incident.getId_assignedUser().toString());
-        creatorUser.setText(incident.getId_creatorUser().toString());
+        departament.setText(incident.getId_department());
+        severity.setText(incident.getId_severity());
         updateDate.setText(incident.getUpdateDate().toString());
 
         title.setDisable(true);
@@ -198,8 +182,6 @@ public class DetalleIncidenciaController implements Initializable {
         createdDate.setDisable(true);
         departament.setDisable(true);
         severity.setDisable(true);
-        assignedUser.setDisable(true);
-        creatorUser.setDisable(true);
         updateDate.setDisable(true);
 
         // Habilitar el botón "Editar"
