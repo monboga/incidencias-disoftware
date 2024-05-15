@@ -11,6 +11,7 @@
           <TableColumn fx:id="col_id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="col_servidor" prefWidth="75.0" text="Servidor" />
             <TableColumn fx:id="col_descripcion" prefWidth="75.0" text="Descripcion" />
+            <TableColumn fx:id="col_precio" prefWidth="75.0" text="Precio" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
