@@ -23,4 +23,7 @@ module src.javasqlriskmanager {
     opens src.javasqlriskmanager.controllers.departmentcontrollers to javafx.fxml;
     exports src.javasqlriskmanager.controllers.userscontrollers;
     opens src.javasqlriskmanager.controllers.userscontrollers to javafx.fxml;
+    exports src.javasqlriskmanager.controllers.serverscontrollers;
+    opens src.javasqlriskmanager.controllers.serverscontrollers to javafx.fxml;
+    
 }
