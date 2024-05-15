@@ -13,7 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import src.javasqlriskmanager.MainApplication;
 import src.javasqlriskmanager.models.Server;
-import src.javasqlriskmanager.singletons.DepartmentSingleton;
 import src.javasqlriskmanager.singletons.ServerSingleton;
 import src.javasqlriskmanager.utils.ConnectToDB;
 
@@ -43,6 +42,9 @@ public class CatServersController implements Initializable {
     @FXML
     private TableColumn<Server, Long> col_garantia;
 
+    @FXML
+    private TableColumn<Server, Long> col_costoTotal;
+
     ServerSingleton serverSingleton;
 
     @FXML
@@ -64,7 +66,8 @@ public class CatServersController implements Initializable {
                 String Description = rs.getString("Description");
                 String Price = rs.getString("Price");
                 String warranty = rs.getString("Warranty");
-                Server server = new Server (ID, Server, Description, Price, Long.parseLong(warranty));
+                String TotalCost = rs.getString("TotalCost");
+                Server server = new Server (ID, Server, Description, Price, Long.parseLong(warranty), TotalCost);
                     serverList.add(server);
             }
 
@@ -105,6 +108,7 @@ public class CatServersController implements Initializable {
         col_descripcion.setCellValueFactory(new PropertyValueFactory<>("Description"));
         col_precio.setCellValueFactory(new PropertyValueFactory<>("Price"));
         col_garantia.setCellValueFactory(new PropertyValueFactory<>("Warranty"));
+        col_costoTotal.setCellValueFactory(new PropertyValueFactory<>("TotalCost"));
         setServerList();
     }
 
@@ -133,7 +137,7 @@ public class CatServersController implements Initializable {
         principalStage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("new-servers.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        principalStage.setTitle("Nueva Server");
+        principalStage.setTitle("Nuevo Server");
         principalStage.setScene(scene);
         principalStage.setResizable(false);
         principalStage.show();
