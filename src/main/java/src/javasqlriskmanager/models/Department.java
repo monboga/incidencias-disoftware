@@ -3,19 +3,21 @@ package src.javasqlriskmanager.models;
 import java.sql.Date;
 
 public class Department {
-    public Department(Long ID, String Name, String Email, String Phone, Long ID_DepType) {
-        this.ID = ID;
-        this.Name = Name;
-        this.Email = Email;
-        this.Phone = Phone;
-        this.ID_DepType = ID_DepType;
-    }
 
     Long ID;
     String Name;
     String Email;
     String Phone;
-    Long ID_DepType;
+
+    public Department() {
+    }
+
+    public Department(Long ID, String name, String email, String phone) {
+        this.ID = ID;
+        Name = name;
+        Email = email;
+        Phone = phone;
+    }
 
     public Long getID() {
         return ID;
@@ -49,14 +51,6 @@ public class Department {
         Phone = phone;
     }
 
-    public Long getID_DepType() {
-        return ID_DepType;
-    }
-
-    public void setID_DepType(Long ID_DepType) {
-        this.ID_DepType = ID_DepType;
-    }
-
     @Override
     public String toString() {
         return "Department{" +
@@ -64,7 +58,6 @@ public class Department {
                 ", Name='" + Name + '\'' +
                 ", Email='" + Email + '\'' +
                 ", Phone='" + Phone + '\'' +
-                ", ID_DeptType=" + ID_DepType +
                 '}';
     }
 }
