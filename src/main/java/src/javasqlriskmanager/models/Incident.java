@@ -1,14 +1,15 @@
 package src.javasqlriskmanager.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Incident {
 
     String title;
     Long id;
     String description;
-    Date createdAt;
-    Date updateDate;
+    LocalDate createdAt;
+    LocalDate updateDate;
     String id_status;
     String id_severity;
     String id_department;
@@ -16,7 +17,7 @@ public class Incident {
     public Incident() {
     }
 
-    public Incident(String title, Long id, String description, Date createdAt, Date updateDate, String id_status, String id_severity, String id_department) {
+    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -51,19 +52,19 @@ public class Incident {
         this.description = description;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateDate() {
+    public LocalDate getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
     }
 

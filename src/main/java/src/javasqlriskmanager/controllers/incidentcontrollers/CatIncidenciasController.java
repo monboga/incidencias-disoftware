@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 import static src.javasqlriskmanager.MainApplication.principalStage;
@@ -41,9 +42,9 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     private TableColumn<Incident, String> col_Description;
     @FXML
-    private TableColumn<Incident, Date> col_Created;
+    private TableColumn<Incident, LocalDate> col_Created;
     @FXML
-    private TableColumn<Incident, Date> col_Update;
+    private TableColumn<Incident, LocalDate> col_Update;
     @FXML
     private TableColumn<Incident, String> col_Status;
     @FXML
@@ -76,8 +77,8 @@ public class CatIncidenciasController implements Initializable {
                 String title = rs.getString("Title");
                 Long id = rs.getLong("ID");
                 String description = rs.getString("Description");
-                Date createdAt = rs.getDate("CreatedAt");
-                Date updateDate = rs.getDate("UpdateDate");
+                LocalDate createdAt = rs.getDate("CreatedAt").toLocalDate();
+                LocalDate updateDate = rs.getDate("UpdateDate").toLocalDate();
                 String name_status = rs.getString("IncStatusName");
                 String name_severity = rs.getString("Status");
                 String name_department = rs.getString("DepartmentName");
@@ -134,8 +135,8 @@ public class CatIncidenciasController implements Initializable {
         col_id.setCellValueFactory(new PropertyValueFactory<Incident, Long>("id")); //Nombre segun como se llama en el model
         col_Title.setCellValueFactory(new PropertyValueFactory<Incident, String>("title"));
         col_Description.setCellValueFactory(new PropertyValueFactory<Incident, String>("description"));
-        col_Created.setCellValueFactory(new PropertyValueFactory<Incident, Date>("createdAt"));
-        col_Update.setCellValueFactory(new PropertyValueFactory<Incident, Date>("updateDate"));
+        col_Created.setCellValueFactory(new PropertyValueFactory<Incident, LocalDate>("createdAt"));
+        col_Update.setCellValueFactory(new PropertyValueFactory<Incident, LocalDate>("updateDate"));
         col_Status.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_status"));
         col_Severity.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_severity"));
         col_Department.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_department"));

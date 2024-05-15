@@ -16,6 +16,7 @@ import src.javasqlriskmanager.utils.ConnectToDB;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -128,8 +129,15 @@ public class NewIncidentController {
             PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
             preparedStatement.setString(1, id_incidentTitle.getText());
             preparedStatement.setString(2,id_incidentDesc.getText());
-            preparedStatement.setDate(3,new Date(System.currentTimeMillis()));
-            preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
+
+            // obtiene la fecha y hora actual en LocalDateTime
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+            preparedStatement.setObject(3, java.sql.Timestamp.valueOf(currentDateTime)); // CreatedAt
+            preparedStatement.setObject(4, java.sql.Timestamp.valueOf(currentDateTime)); // UpdateDate
+
+            //            preparedStatement.setDate(3,new Date(System.currentTimeMillis()));
+            //            preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
             preparedStatement.setLong(5,statusMap.get("ABIERTA"));
             preparedStatement.setLong(6,severitiesMap.get(ListSeveridad.getValue()));
             preparedStatement.setLong(7,departamentsMap.get(ListDep.getValue()));
