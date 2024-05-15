@@ -121,8 +121,8 @@ public class NewIncidentController {
     protected void createIncident() throws IOException {
 
         String insertQuery = "INSERT INTO Incidents " +
-                "(Title, Description, CreatedAt, UpdateDate, ID_Status, ID_Severity, ID_CreatorUser, ID_AssignedUser, ID_Department)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?)";
+                "(Title, Description, CreatedAt, UpdateDate, ID_Status, ID_Severity, ID_Department)" +
+                " VALUES (?, ?, ?, ?, ?, ?,?)";
         try {
             Connection con = ConnectToDB.connectToDB();
             PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
@@ -132,8 +132,7 @@ public class NewIncidentController {
             preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
             preparedStatement.setLong(5,statusMap.get("ABIERTA"));
             preparedStatement.setLong(6,severitiesMap.get(ListSeveridad.getValue()));
-            preparedStatement.setLong(7, LoginController.sesionSingleton.getUsuario().getID());
-            preparedStatement.setLong(8,departamentsMap.get(ListDep.getValue()));
+            preparedStatement.setLong(7,departamentsMap.get(ListDep.getValue()));
             preparedStatement.executeUpdate();
             con.close();
         } catch (SQLException e) {
