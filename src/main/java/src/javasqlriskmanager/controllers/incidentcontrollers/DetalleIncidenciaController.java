@@ -32,6 +32,7 @@ import static src.javasqlriskmanager.MainApplication.principalStage;
 
 public class DetalleIncidenciaController implements Initializable {
 
+
     @FXML
     Label incidentDetail;
 
@@ -73,6 +74,9 @@ public class DetalleIncidenciaController implements Initializable {
     @FXML
     ChoiceBox<String> listDepartment;
 
+    @FXML
+    ChoiceBox<String> listSeverity;
+
     Map<String,Long> severitiesMap = new HashMap<>();
     Map<String,Long> departamentsMap = new HashMap<>();
     Map<String,Long> statusMap = new HashMap<>();
@@ -82,10 +86,10 @@ public class DetalleIncidenciaController implements Initializable {
         // Habilitar la edición de campos
         title.setDisable(false);
         description.setDisable(false);
-        status.setDisable(false);
+        listStatus.setDisable(false);
         createdDate.setDisable(false);
-        departament.setDisable(false);
-        severity.setDisable(false);
+        listDepartment.setDisable(false);
+        listSeverity.setDisable(false);
         updateDate.setDisable(false);
 
         // Deshabilitar el botón "Editar" y habilitar el botón "Guardar"
@@ -96,16 +100,17 @@ public class DetalleIncidenciaController implements Initializable {
     public void guardarCambios() {
         // Obtener los valores actualizados de los campos
         // obtiene la fecha y hora actual en LocalDateTime
-        LocalDateTime currentDateTime = LocalDateTime.now();
         Incident incident = IncidentSingleton.getInstance().getIncident();
         incident.setId((long) Integer.parseInt(idNumber.getText()));
         String usertitle = title.getText();
         String userdescription = description.getText();
         String usercreatedDate = createdDate.getText();
         String userUpdateDate = updateDate.getText();
-        String userStatus = status.getText();
-        String userSeverity = severity.getText();
-        String userDepartament = departament.getText();
+
+        //almaceno los datos de la lista desplegable en la base de datos
+        String userStatus = String.valueOf(statusMap.get(listStatus.getValue()));
+        String userSeverity = String.valueOf(severitiesMap.get(listSeverity.getValue()));
+        String userDepartament = String.valueOf(departamentsMap.get(listDepartment.getValue()));
 
         // Crear una conexión a la base de datos
         Connection con = ConnectToDB.connectToDB();
@@ -155,10 +160,10 @@ public class DetalleIncidenciaController implements Initializable {
             title.setDisable(true);
             description.setDisable(true);
             idNumber.setDisable(true);
-            status.setDisable(true);
+            listStatus.setDisable(true);
             createdDate.setDisable(true);
-            departament.setDisable(true);
-            severity.setDisable(true);
+            listDepartment.setDisable(true);
+            listSeverity.setDisable(true);
             updateDate.setDisable(true);
 
             editButton.setDisable(false);
@@ -196,17 +201,18 @@ public class DetalleIncidenciaController implements Initializable {
         createdDate.setText(incident.getCreatedAt().toString());
         updateDate.setText(incident.getUpdateDate().toString());
 
-        loadIncidentSeverities();
-        loadIncidentDepartaments();
+        // Load incident severities from the database and populate the ChoiceBox
         loadStatus();
+        loadIncidentDepartaments();
+        loadIncidentSeverities();
 
         title.setDisable(true);
         description.setDisable(true);
         idNumber.setDisable(true);
-        status.setDisable(true);
+        listStatus.setDisable(true);
         createdDate.setDisable(true);
-        departament.setDisable(true);
-        severity.setDisable(true);
+        listDepartment.setDisable(true);
+        listSeverity.setDisable(true);
         updateDate.setDisable(true);
 
         // Habilitar el botón "Editar"
@@ -215,8 +221,8 @@ public class DetalleIncidenciaController implements Initializable {
 
     }
 
-
     private void loadStatus() {
+        ObservableList<String> status = FXCollections.observableArrayList();
         String selectQuery = "SELECT * FROM Incident_Status";
 
         try {
@@ -225,6 +231,7 @@ public class DetalleIncidenciaController implements Initializable {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                status.add(resultSet.getString("Name"));
                 statusMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
             }
 
@@ -232,6 +239,11 @@ public class DetalleIncidenciaController implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+        }
+
+        listStatus.setItems(status);
+        if (status.size() > 0) {
+            listStatus.getSelectionModel().select(0);
         }
     }
 
@@ -260,10 +272,6 @@ public class DetalleIncidenciaController implements Initializable {
         if(departaments.size()>0)
             listDepartment.setValue(departaments.get(0));
     }
-
-    @FXML
-    ChoiceBox<String> listSeverity;
-
 
     private void loadIncidentSeverities() {
         ObservableList<String> severities = FXCollections.observableArrayList();

@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="626.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.CatIncidenciasController">
+<AnchorPane prefHeight="628.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.javasqlriskmanager.controllers.incidentcontrollers.CatIncidenciasController">
    <children>
-      <TableView fx:id="tbl_incidencias" editable="true" layoutX="15.0" layoutY="94.0" prefHeight="500.0" prefWidth="1215.0">
+      <TableView fx:id="tbl_incidencias" editable="true" layoutX="15.0" layoutY="94.0" prefHeight="500.0" prefWidth="811.0">
         <columns>
           <TableColumn id="tbl_id" fx:id="col_id" prefWidth="43.0" text="ID" />
           <TableColumn id="tbl_title" fx:id="col_Title" prefWidth="84.0" text="Titulo" />
