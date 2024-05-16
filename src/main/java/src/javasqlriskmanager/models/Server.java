@@ -5,14 +5,16 @@ public class Server {
     long ID;
     String Server;
     String Description;
+    String Price;
 
     public Server() {
     }
 
-    public Server(long ID, String server, String description) {
+    public Server(long ID, String server, String description, String price) {
         this.ID = ID;
         Server = server;
         Description = description;
+        Price = price;
     }
 
     public long getID() {
@@ -39,5 +41,12 @@ public class Server {
             Description = description;
         }
 
+        public String getPrice() {
+            return Price;
+        }
+
+        public void setPrice(String price) {
+            Price = price;
+        }
 
 }
