@@ -13,11 +13,13 @@ public class Incident {
     String id_status;
     String id_severity;
     String id_department;
+    Float id_server;
+    Long warrantly;
 
     public Incident() {
     }
 
-    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department) {
+    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department, Float id_server, Long warrantly) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -26,7 +28,10 @@ public class Incident {
         this.id_status = id_status;
         this.id_severity = id_severity;
         this.id_department = id_department;
+        this.id_server = id_server;
+        this.warrantly = warrantly;
     }
+
 
     public String getTitle() {
         return title;
@@ -92,6 +97,22 @@ public class Incident {
         this.id_department = id_department;
     }
 
+    public Float getId_server() {
+        return id_server;
+    }
+
+    public void setId_server(Float id_server) {
+        this.id_server = id_server;
+    }
+
+    public Long getWarrantly() {
+        return warrantly;
+    }
+
+    public void setWarrantly(Long warrantly) {
+        this.warrantly = warrantly;
+    }
+
     @Override
     public String toString() {
         return "Incident{" +
@@ -100,9 +121,11 @@ public class Incident {
                 ", description='" + description + '\'' +
                 ", createdAt=" + createdAt +
                 ", updateDate=" + updateDate +
-                ", id_status=" + id_status +
-                ", id_severity=" + id_severity +
-                ", id_department=" + id_department +
+                ", id_status='" + id_status + '\'' +
+                ", id_severity='" + id_severity + '\'' +
+                ", id_department='" + id_department + '\'' +
+                ", id_server=" + id_server +
+                ", warrantly=" + warrantly +
                 '}';
     }
 }
