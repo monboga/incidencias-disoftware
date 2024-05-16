@@ -13,8 +13,8 @@
             <TableColumn fx:id="col_Description" prefWidth="85.0" text="Descripcion" />
             <TableColumn id="tbl_date" fx:id="col_Created" prefWidth="115.0" text="Fecha de creación" />
             <TableColumn fx:id="col_Update" prefWidth="149.0" text="Fecha de Actualizacion" />
-            <TableColumn fx:id="col_Update1" prefWidth="149.0" text="Costo (15%)" />
-            <TableColumn fx:id="col_Update11" prefWidth="149.0" text="Garantia (años)" />
+            <TableColumn fx:id="col_Cost" prefWidth="149.0" text="Costo (15%)" />
+            <TableColumn fx:id="col_Warrantly" prefWidth="149.0" text="Garantia (años)" />
             <TableColumn id="tbl_status" fx:id="col_Status" prefWidth="69.0" text="Estatus" />
             <TableColumn fx:id="col_Severity" prefWidth="84.0" text="Severidad" />
             <TableColumn id="tbl_department" fx:id="col_Department" prefWidth="91.0" text="Departamento" />
