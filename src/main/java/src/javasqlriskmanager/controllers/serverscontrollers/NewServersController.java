@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import src.javasqlriskmanager.MainApplication;
 import src.javasqlriskmanager.utils.ConnectToDB;
@@ -27,56 +28,51 @@ public class NewServersController {
     TextField name;
 
     @FXML
-    TextField email;
+    TextArea description;
 
     @FXML
-    TextField phone;
+    TextField price;
 
-    @FXML
-    ChoiceBox<String> depType;
+    // @FXML
+    // public void initialize(){
+    //     loadDepTypes();
+    // }
 
-    Map<String,Long> departamentTypesMap = new HashMap<>();
-    @FXML
-    public void initialize(){
-        loadDepTypes();
-    }
+    // public void loadDepTypes(){
+    //     ObservableList<String> departamentTypes = FXCollections.observableArrayList();
+    //     String selectQuery = "SELECT * FROM Department_Types";
 
-    public void loadDepTypes(){
-        ObservableList<String> departamentTypes = FXCollections.observableArrayList();
-        String selectQuery = "SELECT * FROM Department_Types";
+    //     try {
+    //         Connection con = ConnectToDB.connectToDB();
+    //         PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+    //         ResultSet resultSet = preparedStatement.executeQuery();
 
-        try {
-            Connection con = ConnectToDB.connectToDB();
-            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
-            ResultSet resultSet = preparedStatement.executeQuery();
+    //         while (resultSet.next()) {
+    //             departamentTypes.add(resultSet.getString("Name"));
+    //             departamentTypesMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
+    //         }
 
-            while (resultSet.next()) {
-                departamentTypes.add(resultSet.getString("Name"));
-                departamentTypesMap.put(resultSet.getString("Name"),resultSet.getLong("ID"));
-            }
+    //         con.close();
+    //     } catch (SQLException e) {
+    //         System.out.println(e.getMessage());
+    //         e.printStackTrace();
+    //     }
 
-            con.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-
-        depType.setItems(departamentTypes);
-        if(departamentTypes.size()>0)
-            depType.setValue(departamentTypes.get(0));
-    }
+    //     depType.setItems(departamentTypes);
+    //     if(departamentTypes.size()>0)
+    //         depType.setValue(departamentTypes.get(0));
+    // }
 
     public void createServer() throws IOException {
-        String insertQuery = "INSERT INTO Departments " +
-                "(Name, Email, Phone, ID_DepType)" +
-                " VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Servers " +
+                "(Server, Description, Price)" +
+                " VALUES (?, ?, ?)";
         try {
             Connection con = ConnectToDB.connectToDB();
             PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
             preparedStatement.setString(1, name.getText());
-            preparedStatement.setString(2, email.getText());
-            preparedStatement.setString(3, phone.getText());
-            preparedStatement.setLong(4, departamentTypesMap.get(depType.getValue()));
+            preparedStatement.setString(2, description.getText());
+            preparedStatement.setInt(3, Integer.parseInt(price.getText()));
             preparedStatement.executeUpdate();
             con.close();
         } catch (SQLException e) {
