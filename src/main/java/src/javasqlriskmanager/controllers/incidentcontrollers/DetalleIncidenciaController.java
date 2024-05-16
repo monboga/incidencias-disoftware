@@ -58,6 +58,9 @@ public class DetalleIncidenciaController implements Initializable {
     TextField severity;
 
     @FXML
+    TextField warrantly;
+
+    @FXML
     TextField updateDate;
 
     @FXML
@@ -77,9 +80,16 @@ public class DetalleIncidenciaController implements Initializable {
     @FXML
     ChoiceBox<String> listSeverity;
 
+    //ChoiceBox del server
+    @FXML
+    ChoiceBox<String> listServers;
+
     Map<String,Long> severitiesMap = new HashMap<>();
     Map<String,Long> departamentsMap = new HashMap<>();
     Map<String,Long> statusMap = new HashMap<>();
+
+    //mapeo de los servidores
+    Map<String, Long> serversMap = new HashMap<>();
 
 
     public void editarUsuario() {
@@ -90,6 +100,8 @@ public class DetalleIncidenciaController implements Initializable {
         createdDate.setDisable(false);
         listDepartment.setDisable(false);
         listSeverity.setDisable(false);
+        listServers.setDisable(false);
+        warrantly.setDisable(false);
         updateDate.setDisable(false);
 
         // Deshabilitar el botón "Editar" y habilitar el botón "Guardar"
@@ -106,11 +118,13 @@ public class DetalleIncidenciaController implements Initializable {
         String userdescription = description.getText();
         String usercreatedDate = createdDate.getText();
         String userUpdateDate = updateDate.getText();
+        Long userWarrantly = Long.parseLong(warrantly.getText());
 
         //almaceno los datos de la lista desplegable en la base de datos
         String userStatus = String.valueOf(statusMap.get(listStatus.getValue()));
         String userSeverity = String.valueOf(severitiesMap.get(listSeverity.getValue()));
         String userDepartament = String.valueOf(departamentsMap.get(listDepartment.getValue()));
+        String userServer = String.valueOf(serversMap.get(listServers.getValue()));
 
         // Crear una conexión a la base de datos
         Connection con = ConnectToDB.connectToDB();
@@ -122,7 +136,7 @@ public class DetalleIncidenciaController implements Initializable {
         }
 
         // Construir la sentencia SQL UPDATE
-        String updateQuery = "UPDATE Incidents SET Title = ?, Description = ?, CreatedAt = ?, UpdateDate = ?, ID_Status = ?, ID_severity = ?, ID_Department = ? WHERE ID = ?";
+        String updateQuery = "UPDATE Incidents SET Title = ?, Description = ?, CreatedAt = ?, UpdateDate = ?, ID_Status = ?, ID_severity = ?, ID_Department = ?, ID_Servers = ?, Warrantly = ? WHERE ID = ?";
 
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
@@ -138,7 +152,9 @@ public class DetalleIncidenciaController implements Initializable {
             pstmt.setString(5, userStatus);
             pstmt.setString(6, userSeverity);
             pstmt.setString(7, userDepartament);
-            pstmt.setLong(8, incident.getId());
+            pstmt.setString(8, userServer);
+            pstmt.setLong(9, userWarrantly);
+            pstmt.setLong(10, incident.getId());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -164,7 +180,9 @@ public class DetalleIncidenciaController implements Initializable {
             createdDate.setDisable(true);
             listDepartment.setDisable(true);
             listSeverity.setDisable(true);
+            listServers.setDisable(true);
             updateDate.setDisable(true);
+            warrantly.setDisable(true);
 
             editButton.setDisable(false);
             saveButton.setDisable(true);
@@ -200,11 +218,13 @@ public class DetalleIncidenciaController implements Initializable {
         description.setText(incident.getDescription());
         createdDate.setText(incident.getCreatedAt().toString());
         updateDate.setText(incident.getUpdateDate().toString());
+        warrantly.setText(incident.getWarrantly().toString());
 
         // Load incident severities from the database and populate the ChoiceBox
         loadStatus();
         loadIncidentDepartaments();
         loadIncidentSeverities();
+        loadServers(incident.getId_server());
 
         title.setDisable(true);
         description.setDisable(true);
@@ -213,12 +233,43 @@ public class DetalleIncidenciaController implements Initializable {
         createdDate.setDisable(true);
         listDepartment.setDisable(true);
         listSeverity.setDisable(true);
+        listServers.setDisable(true);
+        warrantly.setDisable(true);
         updateDate.setDisable(true);
 
         // Habilitar el botón "Editar"
         editButton.setDisable(false);
         saveButton.setDisable(true);
 
+    }
+
+    private void loadServers(String selectedServer) {
+
+        ObservableList<String> servers = FXCollections.observableArrayList();
+        String selectQuery = "SELECT * FROM Servers";
+
+        try {
+            Connection con = ConnectToDB.connectToDB();
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String serverName = resultSet.getString("Server");
+                servers.add(serverName);
+                serversMap.put(serverName, resultSet.getLong("ID"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+
+       listServers.setItems(servers);
+        if (servers.size() > 0) {
+            listServers.getSelectionModel().select(0);
+        }
     }
 
     private void loadStatus() {

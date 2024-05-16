@@ -78,6 +78,7 @@ public class DetalleDepartamentoController implements Initializable {
             pstmt.setString(1, userName);
             pstmt.setString(2, userEmail);
             pstmt.setString(3, userPhone);
+            pstmt.setLong(4, department.getID());
 
 
             // Ejecutar la sentencia SQL UPDATE

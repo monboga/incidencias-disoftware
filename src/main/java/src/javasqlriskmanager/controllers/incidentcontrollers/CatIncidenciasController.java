@@ -87,10 +87,14 @@ public class CatIncidenciasController implements Initializable {
                 String description = rs.getString("Description");
                 LocalDate createdAt = rs.getDate("CreatedAt").toLocalDate();
                 LocalDate updateDate = rs.getDate("UpdateDate").toLocalDate();
-                Float cost = rs.getFloat("Cost");
-                System.out.println("cost = " + cost);
+
+
+                String cost = rs.getString("Cost");
+//                System.out.println("cost = " + cost);
                 Long warrantly = rs.getLong("Warrantly");
-                System.out.println("warrantly = " + warrantly);
+//                System.out.println("warrantly = " + warrantly);
+
+
                 String name_status = rs.getString("IncStatusName");
                 String name_severity = rs.getString("Status");
                 String name_department = rs.getString("DepartmentName");

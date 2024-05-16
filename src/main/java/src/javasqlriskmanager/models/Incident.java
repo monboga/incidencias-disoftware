@@ -12,13 +12,13 @@ public class Incident {
     String id_status;
     String id_severity;
     String id_department;
-    Float id_server;
+    String id_server;
     Long warrantly;
 
     public Incident() {
     }
 
-    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department, Float id_server, Long warrantly) {
+    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department, String id_server, Long warrantly) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -96,11 +96,11 @@ public class Incident {
         this.id_department = id_department;
     }
 
-    public Float getId_server() {
+    public String getId_server() {
         return id_server;
     }
 
-    public void setId_server(Float id_server) {
+    public void setId_server(String id_server) {
         this.id_server = id_server;
     }
 

@@ -158,6 +158,9 @@ public class NewIncidentController {
 
     @FXML
     protected void createIncident() throws IOException {
+        String selectedServer = listServers.getValue();
+
+        Long selectedServerId = serversMap.get(selectedServer);
 
         String insertQuery = "INSERT INTO Incidents " +
                 "(Title, Description, CreatedAt, UpdateDate, ID_Status, ID_Severity, ID_Department, ID_Servers, Warrantly)" +
@@ -181,12 +184,25 @@ public class NewIncidentController {
             preparedStatement.setLong(6,severitiesMap.get(ListSeveridad.getValue()));
             preparedStatement.setLong(7,departamentsMap.get(ListDep.getValue()));
 
-            //se agregan las columnas de nombre de servidor y de garantia en el INSERT
-            preparedStatement.setFloat(8, serversMap.get(listServers.getValue()));
+            //se agregan las columnas de nombre de servidor y de garantia en el INSERT;
+            if (selectedServerId != null) {
+                // El ID del servidor seleccionado es válido
+                System.out.println("ID del servidor seleccionado: " + selectedServerId);
+
+                // Asignar el ID del servidor al PreparedStatement
+                preparedStatement.setLong(8, selectedServerId);
+            } else {
+                // Manejar el caso donde el nombre del servidor seleccionado no está en serversMap
+                System.out.println("Nombre de servidor no encontrado en serversMap: " + selectedServer);
+                // Puedes mostrar un mensaje de error al usuario o realizar otra acción apropiada
+            }
+
 
             Long idWarrantly = Long.parseLong(id_warrantly.getText());
             preparedStatement.setLong(9, idWarrantly);
             preparedStatement.executeUpdate();
+
+
             con.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
