@@ -40,12 +40,6 @@ public class DetalleServersController implements Initializable {
     TextField price;
 
     @FXML
-    TextField warranty;
-
-    @FXML
-    TextField totalCost;
-
-    @FXML
     Button editButton;
 
     @FXML
@@ -55,6 +49,7 @@ public class DetalleServersController implements Initializable {
         // Habilitar la edición de campos
         name.setDisable(false);
         description.setDisable(false);
+        price.setDisable(false);
         editButton.setDisable(true);
         saveButton.setDisable(false);
     }
@@ -72,7 +67,7 @@ public class DetalleServersController implements Initializable {
         }
 
         // Construir la sentencia SQL UPDATE
-        String updateQuery = "UPDATE Servers SET Server = ?, Description = ? WHERE ID = ?";
+        String updateQuery = "UPDATE Servers SET Server = ?, Description = ?, Price = ? WHERE ID = ?";
 
         try {
             // Crear un PreparedStatement para ejecutar la sentencia UPDATE
@@ -81,7 +76,8 @@ public class DetalleServersController implements Initializable {
             // Establecer los valores de los parámetros de la sentencia UPDATE
             pstmt.setString(1, name.getText());
             pstmt.setString(2, description.getText());
-            pstmt.setLong(3, DepartmentSingleton.getInstance().getDepartment().getID());
+            pstmt.setString(3, price.getText());
+            pstmt.setLong(4, ServerSingleton.getInstance().getServer().getID());
 
 
             // Ejecutar la sentencia SQL UPDATE
@@ -102,6 +98,7 @@ public class DetalleServersController implements Initializable {
             // Deshabilitar la edición de campos y habilitar el botón "Editar"
             name.setDisable(true);
             description.setDisable(true);
+            price.setDisable(true);
             editButton.setDisable(false);
             saveButton.setDisable(true);
 
@@ -133,10 +130,12 @@ public class DetalleServersController implements Initializable {
 
         name.setText(server.getServer());
         description.setText(server.getDescription());
+        price.setText(server.getPrice());
 
         // Deshabilitar la edición de campos
         name.setDisable(true);
         description.setDisable(true);
+        price.setDisable(true);
 
         // Habilitar el botón "Editar"
         editButton.setDisable(false);
@@ -156,20 +155,11 @@ public class DetalleServersController implements Initializable {
             try {
                 Connection con = ConnectToDB.connectToDB();
 
-                String query = "UPDATE Incidents SET ID_Department = NULL WHERE ID_Department = ?";
-                PreparedStatement preparedStatement = con.prepareStatement(query);
-                preparedStatement.setLong(1, DepartmentSingleton.getInstance().getDepartment().getID());
-                preparedStatement.execute();
-
-                query = "UPDATE Users SET ID_Department = NULL WHERE ID_Department = ?";
-                preparedStatement = con.prepareStatement(query);
-                preparedStatement.setLong(1, DepartmentSingleton.getInstance().getDepartment().getID());
-                preparedStatement.execute();
-
-                query = "DELETE FROM Departments WHERE ID = ?";
-                preparedStatement = con.prepareStatement(query);
-                preparedStatement.setLong(1, DepartmentSingleton.getInstance().getDepartment().getID());
-                preparedStatement.execute();
+                String deleteQuery = "DELETE FROM Servers WHERE ID = ?";
+                PreparedStatement pstmt = con.prepareStatement(deleteQuery);
+                pstmt.setLong(1, ServerSingleton.getInstance().getServer().getID());
+                pstmt.executeUpdate();
+                pstmt.close();
 
                 con.close();
             } catch (Exception e) {
