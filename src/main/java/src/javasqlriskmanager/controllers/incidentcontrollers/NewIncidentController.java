@@ -30,6 +30,15 @@ public class NewIncidentController {
     @FXML
     TextArea id_incidentDesc;
 
+    //se agrego variable para acceder a la garantia
+    @FXML
+    TextField id_warrantly;
+
+    //se agrego choicebox para la lista de servidores
+    @FXML
+    ChoiceBox<String> listServers;
+
+
     @FXML
     ChoiceBox<String> ListSeveridad;
 
@@ -37,12 +46,41 @@ public class NewIncidentController {
     Map<String,Long> departamentsMap = new HashMap<>();
     Map<String,Long> statusMap = new HashMap<>();
 
+    //se agrego el mapeo para la lista de servidores
+    Map<String, Long> serversMap = new HashMap<>();
+
     @FXML
     protected void initialize() {
         // Load incident severities from the database and populate the ChoiceBox
         loadIncidentSeverities();
         loadIncidentDepartaments();
         loadStatus();
+        loadServers();
+    }
+
+    private void loadServers() {
+        ObservableList<String> servers = FXCollections.observableArrayList();
+        String selectQuery = "SELECT * FROM Servers";
+
+        try {
+            Connection con = ConnectToDB.connectToDB();
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                servers.add(resultSet.getString("Server"));
+                serversMap.put(resultSet.getString("Server"),resultSet.getLong("ID"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        listServers.setItems(servers);
+        if(servers.size()>0)
+            listServers.setValue(servers.get(0));
     }
 
     private void loadIncidentSeverities() {
@@ -122,8 +160,8 @@ public class NewIncidentController {
     protected void createIncident() throws IOException {
 
         String insertQuery = "INSERT INTO Incidents " +
-                "(Title, Description, CreatedAt, UpdateDate, ID_Status, ID_Severity, ID_Department)" +
-                " VALUES (?, ?, ?, ?, ?, ?,?)";
+                "(Title, Description, CreatedAt, UpdateDate, ID_Status, ID_Severity, ID_Department, ID_Servers, Warrantly)" +
+                " VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
         try {
             Connection con = ConnectToDB.connectToDB();
             PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
@@ -138,9 +176,16 @@ public class NewIncidentController {
 
             //preparedStatement.setDate(3,new Date(System.currentTimeMillis()));
             //preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
+
             preparedStatement.setLong(5,statusMap.get("ABIERTA"));
             preparedStatement.setLong(6,severitiesMap.get(ListSeveridad.getValue()));
             preparedStatement.setLong(7,departamentsMap.get(ListDep.getValue()));
+
+            //se agregan las columnas de nombre de servidor y de garantia en el INSERT
+            preparedStatement.setFloat(8, serversMap.get(listServers.getValue()));
+
+            Long idWarrantly = Long.parseLong(id_warrantly.getText());
+            preparedStatement.setLong(9, idWarrantly);
             preparedStatement.executeUpdate();
             con.close();
         } catch (SQLException e) {
