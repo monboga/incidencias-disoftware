@@ -60,6 +60,9 @@ public class CatIncidenciasController implements Initializable {
     private TableColumn<Incident, String> col_Department; //variable de columna departamento  uso??
 
     @FXML
+    private TableColumn<Incident, String> col_Server;
+
+    @FXML
     private Button btnBack;
 
     IncidentSingleton incidentSingleton;
@@ -67,7 +70,7 @@ public class CatIncidenciasController implements Initializable {
     @FXML
     void setIncidentList()  {
 
-        String getQuery = "SELECT i.ID, i.Title, i.Description, i.CreatedAt, i.UpdateDate, (ser.Price * 0.15) AS Cost, i.Warrantly AS Warrantly, ist.Name AS IncStatusName, st.Name AS Status, d.Name AS DepartmentName\n" +
+        String getQuery = "SELECT i.ID, i.Title, i.Description, i.CreatedAt, i.UpdateDate, ser.Server AS Server, (ser.Price * 0.15) AS Cost, i.Warrantly AS Warrantly, ist.Name AS IncStatusName, st.Name AS Status, d.Name AS DepartmentName\n" +
                 "FROM Incidents i \n" +
                 "LEFT JOIN Departments d ON i.ID_Department = d.ID\n" +
                 "LEFT JOIN Incident_Severity_Types st ON i.ID_severity = st.ID\n" +
@@ -89,6 +92,8 @@ public class CatIncidenciasController implements Initializable {
                 LocalDate updateDate = rs.getDate("UpdateDate").toLocalDate();
 
 
+                String nameServer = rs.getString("Server");
+
                 String cost = rs.getString("Cost");
 //                System.out.println("cost = " + cost);
                 Long warrantly = rs.getLong("Warrantly");
@@ -98,7 +103,7 @@ public class CatIncidenciasController implements Initializable {
                 String name_status = rs.getString("IncStatusName");
                 String name_severity = rs.getString("Status");
                 String name_department = rs.getString("DepartmentName");
-                Incident incident = new Incident(title,id,description,createdAt,updateDate,name_status, name_severity, name_department, cost, warrantly);
+                Incident incident = new Incident(title,id,description,createdAt,updateDate,name_status, name_severity, name_department,nameServer, cost, warrantly);
                 if(incident!=null)
                     incidentList.add(incident);
             }
@@ -153,6 +158,7 @@ public class CatIncidenciasController implements Initializable {
         col_Description.setCellValueFactory(new PropertyValueFactory<Incident, String>("description"));
         col_Created.setCellValueFactory(new PropertyValueFactory<Incident, LocalDate>("createdAt"));
         col_Update.setCellValueFactory(new PropertyValueFactory<Incident, LocalDate>("updateDate"));
+        col_Server.setCellValueFactory(new PropertyValueFactory<Incident, String>("name_server"));
         col_Cost.setCellValueFactory(new PropertyValueFactory<Incident, Float>("id_server"));
         col_Warrantly.setCellValueFactory(new PropertyValueFactory<Incident, Long>("warrantly"));
         col_Status.setCellValueFactory(new PropertyValueFactory<Incident, String>("id_status"));

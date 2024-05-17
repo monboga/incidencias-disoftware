@@ -12,13 +12,15 @@ public class Incident {
     String id_status;
     String id_severity;
     String id_department;
+    String name_server;
     String id_server;
     Long warrantly;
 
     public Incident() {
+
     }
 
-    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department, String id_server, Long warrantly) {
+    public Incident(String title, Long id, String description, LocalDate createdAt, LocalDate updateDate, String id_status, String id_severity, String id_department, String name_server, String id_server, Long warrantly) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -27,10 +29,10 @@ public class Incident {
         this.id_status = id_status;
         this.id_severity = id_severity;
         this.id_department = id_department;
+        this.name_server = name_server;
         this.id_server = id_server;
         this.warrantly = warrantly;
     }
-
 
     public String getTitle() {
         return title;
@@ -96,6 +98,14 @@ public class Incident {
         this.id_department = id_department;
     }
 
+    public String getName_server() {
+        return name_server;
+    }
+
+    public void setName_server(String name_server) {
+        this.name_server = name_server;
+    }
+
     public String getId_server() {
         return id_server;
     }
@@ -123,7 +133,8 @@ public class Incident {
                 ", id_status='" + id_status + '\'' +
                 ", id_severity='" + id_severity + '\'' +
                 ", id_department='" + id_department + '\'' +
-                ", id_server=" + id_server +
+                ", name_server='" + name_server + '\'' +
+                ", id_server='" + id_server + '\'' +
                 ", warrantly=" + warrantly +
                 '}';
     }
