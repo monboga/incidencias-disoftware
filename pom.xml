@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>src</groupId>
-    <artifactId>Java-SQL-Risk-Manager</artifactId>
+    <artifactId>Incidencias</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Java-SQL-Risk-Manager</name>
+    <name>Incidencias</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -116,6 +116,17 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <!-- Additional configuration. -->
                         </configuration>
                     </execution>
                 </executions>
