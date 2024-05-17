@@ -75,7 +75,7 @@ public class CatIncidenciasController implements Initializable {
                 "LEFT JOIN Departments d ON i.ID_Department = d.ID\n" +
                 "LEFT JOIN Incident_Severity_Types st ON i.ID_severity = st.ID\n" +
                 "LEFT JOIN Incident_Status ist ON i.ID_Status = ist.ID\n" +
-                "LEFT JOIN Servers ser ON i.ID_Servers = ser.ID;";
+                "LEFT JOIN usersql.Servers ser ON i.ID_Servers = ser.ID;";
         ObservableList<Incident> incidentList = FXCollections.observableArrayList();
 
         try {

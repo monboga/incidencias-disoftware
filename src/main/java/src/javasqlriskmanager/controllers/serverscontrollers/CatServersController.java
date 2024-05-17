@@ -46,7 +46,7 @@ public class CatServersController implements Initializable {
     @FXML
     void setServerList() {
 
-        String getQuery = "SELECT * FROM Servers";
+        String getQuery = "SELECT * FROM usersql.Servers";
         ObservableList<Server> serverList = FXCollections.observableArrayList();
 
         try {
